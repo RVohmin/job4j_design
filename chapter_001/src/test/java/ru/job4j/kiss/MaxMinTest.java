@@ -21,7 +21,8 @@ public class MaxMinTest {
         assertThat(expected, is(rsl));
     }
 
-    public void thenMinNotMinus5ThenTrue() {
+    @Test
+    public void thenMinIsMinus5ThenTrue() {
         List<Integer> list = List.of(79, 69, 49, 19, -5, 22, 34, 5, 66);
         MaxMin obj = new MaxMin();
         Integer expected = -5;
@@ -30,10 +31,10 @@ public class MaxMinTest {
     }
 
     @Test
-    public void thenMax79ThenTrue() {
-        List<Integer> list = List.of(79, 69, 49, 19, 5, 22, 34, 5, 66);
+    public void thenMax99ThenTrue() {
+        List<Integer> list = List.of(-99, -7, 49, 99, 79, 69, 49, 19, 5, 22, 34, 5, 66);
         MaxMin obj = new MaxMin();
-        Integer expected = 79;
+        Integer expected = 99;
         Integer rsl = obj.max(list, Integer::compareTo);
         assertThat(expected, is(rsl));
     }
