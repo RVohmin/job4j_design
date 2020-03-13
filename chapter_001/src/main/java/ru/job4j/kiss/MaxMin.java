@@ -40,11 +40,11 @@ public class MaxMin {
         return solveMinMax(value, comparator, initValue);
     }
 
-    public static void main(String[] args) {
-        List<Integer> list = List.of(79, 69, 49, 19, 19, 21, 22, 23, 34, 5, 66);
-        MaxMin obj = new MaxMin();
-        System.out.println(obj.max(list, Integer::compareTo));
-        System.out.println(obj.min(list, Integer::compareTo));
-
-    }
+//    public static void main(String[] args) {
+//        List<Integer> list = List.of(79, 69, 49, 19, 19, 21, 22, 23, 34, 5, 66);
+//        MaxMin obj = new MaxMin();
+//        System.out.println(obj.max(list, Integer::compareTo));
+//        System.out.println(obj.min(list, Integer::compareTo));
+//
+//    }
 }
