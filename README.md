@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/RVohmin/job4j_design.svg?branch=master)](https://travis-ci.org/RVohmin/job4j_design)
+[![Build Status](https://travis-ci.org/RVohmin/job4j_design.svg?branch=master)](https://travis-ci.org/RVohmin/job4j_design)
+
 # job4j Level JUNIOR
 Решение прикладных задач на Java с изучением и применением на практике:
 
