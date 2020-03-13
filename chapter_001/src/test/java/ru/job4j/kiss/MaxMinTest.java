@@ -32,7 +32,7 @@ public class MaxMinTest {
 
     @Test
     public void thenMax99ThenTrue() {
-        List<Integer> list = List.of(-99, -7, 49, 99, 79, 69, 49, 19, 5, 22, 34, 5, 66);
+        List<Integer> list = List.of(-99, -7, 17, 17, 49, 99, 79, 69, 49, 19, 5, 22, 34, 5, 66);
         MaxMin obj = new MaxMin();
         Integer expected = 99;
         Integer rsl = obj.max(list, Integer::compareTo);
