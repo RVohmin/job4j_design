@@ -14,7 +14,7 @@ public class MaxMin {
      * @return Maxmin
      */
     private <T> T solveMinMax(List<T> value, BiPredicate<T, T> predict) {
-        T rsl = value.get(0);
+        T rsl = value.iterator().next();
         for (T item : value) {
             if (predict.test(rsl, item)) {
                 rsl = item;
