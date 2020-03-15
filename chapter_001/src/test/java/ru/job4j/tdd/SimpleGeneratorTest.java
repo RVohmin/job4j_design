@@ -30,7 +30,6 @@ public class SimpleGeneratorTest {
         String checked = " Help, Aaaa, Aaaa, Aaaa";
         //act действия
         String result = template.generate(text, data);
-        System.out.println(result);
         //action события
         assertThat(result, is(checked));
     }
