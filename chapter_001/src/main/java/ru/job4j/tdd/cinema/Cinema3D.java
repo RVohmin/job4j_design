@@ -9,7 +9,7 @@ import java.util.function.Predicate;
  * @since 15.03.2020
  */
 public class Cinema3D implements Cinema {
-    public static List<Session> list = List.of(new Session3D());
+    public static List<Session> list;
 
     @Override
     public List<Session> find(Predicate<Session> filter) {

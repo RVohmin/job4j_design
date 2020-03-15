@@ -27,7 +27,7 @@ public class SimpleGeneratorTest {
         Template template = new SimpleGenerator();
         String text = " Help, ${sos}, ${sos}, ${sos}";
         Map<String, String> data = Map.of("sos", "Aaaa");
-        String checked = " Help, Aaa, Aaa, Aaa";
+        String checked = " Help, Aaaa, Aaaa, Aaaa";
         //act действия
         String result = template.generate(text, data);
         System.out.println(result);
@@ -41,10 +41,24 @@ public class SimpleGeneratorTest {
         Template template = new SimpleGenerator();
         String text = " Help, ${sos}, ${sos}, ${sos}";
         Map<String, String> data = Map.of("cos", "Aaaa");
-        String checked = " Help, Ааа, Ааа, Ааа";
+        String checked = " Help, Ааaа, Ааaа, Ааaа";
         //act действия
         String result = template.generate(text, data);
         //action события
         assertThat(result, is(checked));
     }
+
+    @Test(expected = Exception.class)
+    public void whenMapHasExtraKeysThenException() throws Exception {
+        //assign назначаем
+        Template template = new SimpleGenerator();
+        String text = " Help, ${sos}, ${sos}, ${sos}";
+        Map<String, String> data = Map.of("sos", "Aaaa", "extra", "Aaaa");
+        String checked = " Help, Аааa, Аааa, Аааa";
+        //act действия
+        String result = template.generate(text, data);
+        //action события
+        assertThat(result, is(checked));
+    }
+
 }
