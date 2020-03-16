@@ -34,8 +34,9 @@ public class CinemaTest {
     public void add() {
         Cinema cinema = new Cinema3D();
         Session session = new Session3D();
-        List<Session> list = List.of(session);
         cinema.add(session);
-        assertThat(session, is(Cinema3D.list.get(0)));
+        assertThat(session, is(cinema.find(sessionX -> true)));
     }
+
+
 }

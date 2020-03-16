@@ -50,6 +50,39 @@ public class ReportEngineTest {
     }
 
     @Test
+    public void whenForAccounterGenerated() {
+        double euroPerRouble = 85.3;
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employer worker1 = new Employer("Ivan", now, now, 100);
+        Employer worker2 = new Employer("Petr", now, now, 200);
+        Employer worker3 = new Employer("Alex", now, now, 300);
+        store.add(worker1);
+        store.add(worker2);
+        store.add(worker3);
+        Report reportAccounter = new ReportAccounter();
+        ReportEngine engine = new ReportEngine(store);
+        String expect = "Name; Hired; Fired; Salary;"
+                + System.lineSeparator()
+                + worker1.getName() + ";"
+                + worker1.getHired() + ";"
+                + worker1.getFired() + ";"
+                + worker1.getSalary() * euroPerRouble + ";"
+                + System.lineSeparator()
+                + worker2.getName() + ";"
+                + worker2.getHired() + ";"
+                + worker2.getFired() + ";"
+                + worker2.getSalary() * euroPerRouble + ";"
+                + System.lineSeparator()
+                + worker3.getName() + ";"
+                + worker3.getHired() + ";"
+                + worker3.getFired() + ";"
+                + worker3.getSalary() * euroPerRouble + ";"
+                + System.lineSeparator();
+        assertThat(engine.generate(em -> true, reportAccounter), is(expect));
+    }
+
+    @Test
     public void whenHtmlGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
