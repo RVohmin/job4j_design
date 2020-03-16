@@ -76,8 +76,6 @@ public class ReportEngineTest {
                 .append(System.lineSeparator())
                 .append("<body>")
                 .append(System.lineSeparator())
-                .append("</body>")
-                .append(System.lineSeparator())
                 .append("<p> Name: ").append(worker.getName()).append("</p>")
                 .append("<p> Hired: ").append(worker.getHired()).append("</p>")
                 .append("<p> Fired: ").append(worker.getFired()).append("</p>")

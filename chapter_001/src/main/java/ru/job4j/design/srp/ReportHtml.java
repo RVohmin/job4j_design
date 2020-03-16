@@ -37,8 +37,6 @@ public class ReportHtml implements Report {
                 .append("</head>")
                 .append(System.lineSeparator())
                 .append("<body>")
-                .append(System.lineSeparator())
-                .append("</body>")
                 .append(System.lineSeparator());
         for (Employer employer : store.findBy(filter)) {
             html.append("<p> Name: ").append(employer.getName()).append("</p>")

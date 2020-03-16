@@ -52,7 +52,6 @@ public class SimpleGenerator implements Template {
         Map<String, String> data = new HashMap<>();
         data.put("name", "Petr");
         data.put("subject", "you");
-//        data.put("extraKey", "value");
         String result = template.generate(text, data);
         System.out.println(result);
     }
