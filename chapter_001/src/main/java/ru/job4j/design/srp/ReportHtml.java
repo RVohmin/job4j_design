@@ -1,5 +1,7 @@
 package ru.job4j.design.srp;
 
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -7,18 +9,8 @@ import java.util.function.Predicate;
  * @since 16.03.2020
  */
 public class ReportHtml implements Report {
-//    public ReportHtml(MemStore store) {
-//    }
-//    private Predicate<Employer> filter;
-//    private Store store;
-//
-//    public ReportHtml(Predicate<Employer> filter, Store store) {
-//        this.store = store;
-//        this.store = store;
-//    }
-
     @Override
-    public String generateText(Predicate<Employer> filter, Store store) {
+    public String generateReport(Map<String, String> map) {
         StringBuilder html = new StringBuilder();
         html.append("<!DOCTYPE html>")
                 .append(System.lineSeparator())
@@ -38,11 +30,11 @@ public class ReportHtml implements Report {
                 .append(System.lineSeparator())
                 .append("<body>")
                 .append(System.lineSeparator());
-        for (Employer employer : store.findBy(filter)) {
-            html.append("<p> Name: ").append(employer.getName()).append("</p>")
-                    .append("<p> Hired: ").append(employer.getHired()).append("</p>")
-                    .append("<p> Fired: ").append(employer.getFired()).append("</p>")
-                    .append("<p> Salary: ").append(employer.getSalary()).append("</p>");
+        for (Map.Entry<String, String> item : map.entrySet()) {
+            String key = item.getKey().substring(3);
+            String value = item.getValue();
+            html.append("<p>").append(key).append(value).append("</p>")
+                    .append(System.lineSeparator());
         }
         html.append(System.lineSeparator())
                 .append("</body>")

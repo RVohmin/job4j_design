@@ -9,7 +9,7 @@ import java.util.function.Predicate;
  * @since 15.03.2020
  */
 public class Cinema3D implements Cinema {
-    public static List<Session> list;
+    private static List<Session> list;
 
     @Override
     public List<Session> find(Predicate<Session> filter) {
@@ -23,6 +23,5 @@ public class Cinema3D implements Cinema {
 
     @Override
     public void add(Session session) {
-
     }
 }

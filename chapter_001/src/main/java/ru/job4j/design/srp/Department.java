@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 
 /**
  * @author RVohmin
- * @since 16.03.2020
+ * @since 17.03.2020
  */
-public interface Report {
-    String generateReport(Map<String, String> map);
+public interface Department {
+    Map<String, String> makeReport(Predicate<Employer> filter, Store store);
 }
