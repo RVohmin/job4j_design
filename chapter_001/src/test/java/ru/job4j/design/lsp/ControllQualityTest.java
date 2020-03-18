@@ -25,7 +25,8 @@ public class ControllQualityTest {
         meth.addFoodToStorage(milk);
         meth.addFoodToStorage(milk2);
         meth.addFoodToStorage(milk3);
-        assertThat(milk, is(meth.shop.getShopList().get(0)));
+        Food result = meth.shop.getList().get(0);
+        assertThat(milk, is(result));
     }
 
     @Test

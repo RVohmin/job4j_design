@@ -6,4 +6,5 @@ package ru.job4j.design.lsp;
  */
 public interface Box {
     void add(Food food);
+    boolean check(Food food);
 }
