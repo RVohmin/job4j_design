@@ -40,7 +40,6 @@ public class Trash implements Box {
             System.out.println("Ошибка в преобразовании даты" + e.getMessage());
         }
         if (percent <= 0) {
-            add(food);
             return true;
         }
         return false;

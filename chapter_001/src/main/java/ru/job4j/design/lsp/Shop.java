@@ -40,11 +40,9 @@ public class Shop implements Box {
             System.out.println("Ошибка в преобразовании даты" + e.getMessage());
         }
         if (percent >= 25 && percent < 75) {
-            add(food);
             return true;
         } else if (percent > 75) {
             food.setDisscount(50);
-            add(food);
             return true;
         }
         return false;

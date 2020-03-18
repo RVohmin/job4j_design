@@ -40,7 +40,6 @@ public class Warehouse implements Box {
             System.out.println("Ошибка в преобразовании даты" + e.getMessage());
         }
         if (percent >= 75) {
-            add(food);
             return true;
         }
         return false;
