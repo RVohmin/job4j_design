@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author RVohmin
@@ -23,22 +24,7 @@ public class Shop implements Box {
 
     @Override
     public boolean check(Food food) {
-        String createDate = food.getCreateDate();
-        String expireDate = food.getExpaireDate();
-        String nowDate = "18.03.2020";
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dateBegin, dateEnd, dateNow;
-        int percent = 0;
-        try {
-            dateBegin = format.parse(createDate);
-            dateEnd = format.parse(expireDate);
-            dateNow = format.parse(nowDate);
-            int daysAll = (int) ((dateEnd.getTime() - dateBegin.getTime()) / (24 * 60 * 60 * 1000));
-            int daysToNow = (int) ((dateNow.getTime() - dateBegin.getTime()) / (24 * 60 * 60 * 1000));
-            percent = daysToNow * 100 / daysAll;
-        } catch (Exception e) {
-            System.out.println("Ошибка в преобразовании даты" + e.getMessage());
-        }
+        int percent = percent(food);
         if (percent >= 25 && percent < 75) {
             return true;
         } else if (percent > 75) {
@@ -46,5 +32,22 @@ public class Shop implements Box {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Shop)) {
+            return false;
+        }
+        Shop shop = (Shop) o;
+        return Objects.equals(shopList, shop.shopList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(shopList);
     }
 }

@@ -10,12 +10,14 @@ import java.util.List;
  */
 public class ControllQuality {
 
-    private List<Box> storage = Arrays.asList();
+    private List<Box> storage;
 
-    public ControllQuality(Box shop, Box trash, Box warehouse) {
-        storage.add(shop);
-        storage.add(trash);
-        storage.add(warehouse);
+    public List<Box> getStorage() {
+        return storage;
+    }
+
+    public ControllQuality(List<Box> box) {
+        storage = box;
     }
 
     public void addFoodToStorage(Food food) {

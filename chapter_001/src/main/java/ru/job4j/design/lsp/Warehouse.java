@@ -23,25 +23,7 @@ public class Warehouse implements Box {
 
     @Override
     public boolean check(Food food) {
-        String createDate = food.getCreateDate();
-        String expireDate = food.getExpaireDate();
-        String nowDate = "18.03.2020";
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dateBegin, dateEnd, dateNow;
-        int percent = 0;
-        try {
-            dateBegin = format.parse(createDate);
-            dateEnd = format.parse(expireDate);
-            dateNow = format.parse(nowDate);
-            int daysAll = (int) ((dateEnd.getTime() - dateBegin.getTime()) / (24 * 60 * 60 * 1000));
-            int daysToNow = (int) ((dateNow.getTime() - dateBegin.getTime()) / (24 * 60 * 60 * 1000));
-            percent = daysToNow * 100 / daysAll;
-        } catch (Exception e) {
-            System.out.println("Ошибка в преобразовании даты" + e.getMessage());
-        }
-        if (percent >= 75) {
-            return true;
-        }
-        return false;
+        int percent = percent(food);
+        return percent >= 75;
     }
 }

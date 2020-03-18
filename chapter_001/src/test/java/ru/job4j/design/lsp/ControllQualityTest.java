@@ -2,7 +2,10 @@ package ru.job4j.design.lsp;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class ControllQualityTest {
@@ -21,12 +24,15 @@ public class ControllQualityTest {
                 "12.05.2020",
                 100.0,
                 0);
-        ControllQuality meth = new ControllQuality();
+        Shop shop = new Shop();
+        Trash trash = new Trash();
+        Warehouse warehouse = new Warehouse();
+        ControllQuality meth = new ControllQuality(List.of(shop, trash, warehouse));
         meth.addFoodToStorage(milk);
         meth.addFoodToStorage(milk2);
         meth.addFoodToStorage(milk3);
-        Food result = meth.
-        assertThat(milk, is(result));
+        Box result = meth.getStorage().stream().filter(x -> x.equals(shop)).findFirst().orElseGet(null);
+        assertEquals(shop, result);
     }
 
     @Test
@@ -35,10 +41,13 @@ public class ControllQualityTest {
                 "20.03.2020",
                 100.0,
                 0);
-        ControllQuality meth = new ControllQuality();
+        Shop shop = new Shop();
+        Trash trash = new Trash();
+        Warehouse warehouse = new Warehouse();
+        ControllQuality meth = new ControllQuality(List.of(shop, trash, warehouse));
         meth.addFoodToStorage(milk);
-        int expected = milk.getDisscount();
-        assertThat(expected, is(meth.shop.getShopList().get(0).getDisscount()));
+        Box result = meth.getStorage().stream().filter(x -> x.equals(shop)).findFirst().orElseGet(null);
+        assertEquals(shop, result);
     }
 
     @Test
@@ -47,9 +56,13 @@ public class ControllQualityTest {
                 "12.03.2020",
                 100.0,
                 0);
-        ControllQuality meth = new ControllQuality();
+        Shop shop = new Shop();
+        Trash trash = new Trash();
+        Warehouse warehouse = new Warehouse();
+        ControllQuality meth = new ControllQuality(List.of(shop, trash, warehouse));
         meth.addFoodToStorage(milk2);
-        assertThat(milk2, is(meth.trash.getTrashList().get(0)));
+        Box result = meth.getStorage().stream().filter(x -> x.equals(warehouse)).findFirst().orElseGet(null);
+        assertEquals(warehouse, result);
     }
     @Test
     public void addFoodToStorageWarehouse() {
@@ -57,8 +70,12 @@ public class ControllQualityTest {
                 "12.05.2020",
                 100.0,
                 0);
-        ControllQuality meth = new ControllQuality();
+        Shop shop = new Shop();
+        Trash trash = new Trash();
+        Warehouse warehouse = new Warehouse();
+        ControllQuality meth = new ControllQuality(List.of(shop, trash, warehouse));
         meth.addFoodToStorage(milk3);
-        assertThat(milk3, is(meth.warehouse.getWareHouseList().get(0)));
+        Box result = meth.getStorage().stream().filter(x -> x.equals(warehouse)).findFirst().orElseGet(null);
+        assertEquals(warehouse, result);
     }
 }
