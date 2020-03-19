@@ -42,12 +42,11 @@ public class ControllQualityTest {
                 100.0,
                 0);
         Shop shop = new Shop();
-        Trash trash = new Trash();
-        Warehouse warehouse = new Warehouse();
-        ControllQuality meth = new ControllQuality(List.of(shop, trash, warehouse));
+        ControllQuality meth = new ControllQuality(List.of(shop));
         meth.addFoodToStorage(milk);
-        Box result = meth.getStorage().stream().filter(x -> x.equals(shop)).findFirst().orElseGet(null);
-        assertEquals(shop, result);
+        Shop expected = new Shop();
+        expected.add(milk);
+        assertEquals(shop, expected);
     }
 
     @Test
