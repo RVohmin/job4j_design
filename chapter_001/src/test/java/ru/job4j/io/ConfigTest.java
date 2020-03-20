@@ -23,6 +23,7 @@ public class ConfigTest {
         String path = "..//app.proppperties";
         Config config = new Config(path);
         config.load();
+
         assertThat(
                 config.value("name"),
                 is("Petr Arsentev")
