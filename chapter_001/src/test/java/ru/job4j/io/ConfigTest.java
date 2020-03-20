@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class ConfigTest {
     @Test
     public void whenPairWithoutComment() {
-        String path = "/Users/romanvohmin/projects/job4j_design/app.properties";
+        String path = "..//app.properties";
         Config config = new Config(path);
         config.load();
         assertThat(
@@ -20,7 +20,7 @@ public class ConfigTest {
 
     @Test
     public void whenPairWithComment() {
-        String path = "/Users/romanvohmin/projects/job4j_design/app.properties";
+        String path = "..//app.properties";
         Config config = new Config(path);
         config.load();
         assertThat(
