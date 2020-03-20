@@ -41,7 +41,7 @@ public class ReportEngine {
         Report reportHtml = new ReportHtml();
         Report reportXML = new ReportXML();
         Report reportJSON = new ReportJSON();
-        String text = engine.generate(em -> true, reportText, hrDep);
+        String text = engine.generate(em -> true, reportHtml, accountDep);
         System.out.println(text);
     }
 }
