@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 import static org.junit.Assert.*;
 
 public class AnalizyTest {
-    @Ignore
     @Test
     public void whenFilterFrom400Or500To200Or300() {
         Analizy o = new Analizy();

@@ -7,7 +7,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class ConfigTest {
-    @Ignore
     @Test
     public void whenPairWithoutComment() {
         String path = "/Users/romanvohmin/projects/job4j_design/app.properties";
