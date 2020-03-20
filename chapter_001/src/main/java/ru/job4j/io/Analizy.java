@@ -1,13 +1,12 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * ru.job4j.io.Analizy
@@ -18,12 +17,9 @@ import java.util.stream.Collectors;
  */
 public class Analizy {
     public void unavailable(String source, String target) {
-        StringBuilder str = new StringBuilder();
         List<String> list = new ArrayList<>();
-        List<String> list3 = new ArrayList<>();
-
-        try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            list = read.lines()
+        try (Stream<String> streamFromFiles = Files.lines(Paths.get(source))) {
+            list = streamFromFiles
                     .filter(x -> (!x.startsWith("//")
                             && !x.startsWith("/*")
                             && !x.startsWith("*")
@@ -34,9 +30,10 @@ public class Analizy {
         }
 
         List<String> list2 = new ArrayList<>();
+        String temp;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).startsWith("400") || list.get(i).startsWith("500")) {
-                list2.add(list.get(i).substring(4) + "-");
+                temp = list.get(i).substring(4) + "-";
             } else {
                 continue;
             }
@@ -47,8 +44,7 @@ public class Analizy {
                     continue;
                 }
                 if (!list.get(i).startsWith("400") || !list.get(i).startsWith("500")) {
-                    list2.add(list.get(i).substring(4));
-                    list2.add(System.lineSeparator());
+                    list2.add(temp + list.get(i).substring(4));
                     break;
                 }
                 i++;
@@ -65,12 +61,6 @@ public class Analizy {
     }
 
     public static void main(String[] args) {
-        try (PrintWriter out = new PrintWriter(new FileOutputStream("unavailable.csv"))) {
-            out.println("!!!   15:01:30;15:02:32");
-            out.println("!!!   15:10:30;23:12:32");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Analizy o = new Analizy();
         o.unavailable("server.log", "unavailable.csv");
     }
