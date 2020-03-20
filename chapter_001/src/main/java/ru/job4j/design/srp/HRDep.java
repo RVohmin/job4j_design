@@ -20,7 +20,6 @@ public class HRDep implements Department {
             map.put(count + ". salary: ", employer.getSalary() + " euros;");
             count++;
         }
-
         return map;
     }
 }

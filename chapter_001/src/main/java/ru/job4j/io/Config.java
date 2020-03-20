@@ -20,7 +20,6 @@ public class Config {
     }
 
     public void load() {
-        StringJoiner out = new StringJoiner(System.lineSeparator());
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
                     .filter(x -> (!x.startsWith("//")
