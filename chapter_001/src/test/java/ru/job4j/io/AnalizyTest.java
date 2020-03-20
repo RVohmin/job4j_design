@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Files;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.*;
 
 public class AnalizyTest {
+    @Ignore
     @Test
     public void whenFilterFrom400Or500To200Or300() {
         Analizy o = new Analizy();
