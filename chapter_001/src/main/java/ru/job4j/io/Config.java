@@ -49,6 +49,6 @@ public class Config {
 
     public static void main(String[] args) {
         Config config = new Config("./");
-        System.out.println(new Config("app.properties").toString());
+        System.out.println(new Config("app.proppperties").toString());
     }
 }
