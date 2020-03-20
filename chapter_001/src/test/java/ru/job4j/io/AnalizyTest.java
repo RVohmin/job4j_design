@@ -14,7 +14,7 @@ public class AnalizyTest {
     @Test
     public void whenFilterFrom400Or500To200Or300() {
         Analizy o = new Analizy();
-        o.unavailable("..//server.logs", "..//unavailable.csv");
+        o.unavailable("..//!server.logos", "..//unavailable.csv");
         String expected = "10:58:01-10:59:01\n"
                 + "11:01:02-11:02:02\n"
                 + "12:00:01-13:00:01\n"

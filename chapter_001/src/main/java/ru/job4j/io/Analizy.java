@@ -62,6 +62,6 @@ public class Analizy {
 
     public static void main(String[] args) {
         Analizy o = new Analizy();
-        o.unavailable("server.logs", "unavailable.csv");
+        o.unavailable("!server.logos", "unavailable.csv");
     }
 }
