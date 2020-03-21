@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,46 +18,27 @@ import java.util.stream.Stream;
  */
 public class Analizy {
     public void unavailable(String source, String target) {
-        List<String> list = new ArrayList<>();
-        try (Stream<String> streamFromFiles = Files.lines(Paths.get(source))) {
-            list = streamFromFiles
-                    .filter(x -> (!x.startsWith("//")
-                            && !x.startsWith("/*")
-                            && !x.startsWith("*")
-                            && x.length() != 0))
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        List<String> list2 = new ArrayList<>();
         String temp;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).startsWith("400") || list.get(i).startsWith("500")) {
-                temp = list.get(i).substring(4) + "-";
-            } else {
-                continue;
-            }
-            i++;
-            while (!list.get(i).startsWith("400") || !list.get(i).startsWith("500")) {
-                if (list.get(i).startsWith("400") || list.get(i).startsWith("500")) {
-                    i++;
-                    continue;
+        String line;
+        try (FileReader fr = new FileReader(source);
+             FileWriter fw = new FileWriter(target);
+             Scanner scan = new Scanner(fr)) {
+            while (scan.hasNextLine()) {
+                line = scan.nextLine();
+                if (line.startsWith("400") || line.startsWith("500")) {
+                    temp = line.substring(4) + "-";
+                    line = scan.nextLine();
+                    while (line != null) {
+                        if ((line.startsWith("200") || line.startsWith("300"))) {
+                            fw.write(temp + line.substring(4) + "\n");
+                            break;
+                        }
+                        line = scan.nextLine();
+                    }
                 }
-                if (!list.get(i).startsWith("400") || !list.get(i).startsWith("500")) {
-                    list2.add(temp + list.get(i).substring(4));
-                    break;
-                }
-                i++;
-            }
-        }
-
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            for (String item : list2) {
-                out.println(item);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
     }
 
