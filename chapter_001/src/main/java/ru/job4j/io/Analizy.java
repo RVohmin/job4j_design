@@ -14,6 +14,7 @@ public class Analizy {
     public void unavailable(String source, String target) {
         String temp;
         String line;
+
         try (FileReader fr = new FileReader(source);
              FileWriter fw = new FileWriter(target);
              Scanner scan = new Scanner(fr)) {
