@@ -18,7 +18,7 @@ public class AnalizyTest {
     public void whenFilterFrom400Or500To200Or300() throws IOException {
         File source = folder.newFile("source.txt");
         File target = folder.newFile("target.txt");
-        try (FileReader fr = new FileReader("/Users/romanvohmin/projects/job4j_design/!server.logos");
+        try (FileReader fr = new FileReader("..//!server.logos");
              FileWriter fw = new FileWriter(source.getAbsolutePath());
              Scanner scan = new Scanner(fr)) {
             String line;
