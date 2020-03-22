@@ -1,7 +1,5 @@
 package ru.job4j.design.lsp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +19,12 @@ public class ControllQuality {
     }
 
     public void addFoodToStorage(Food food) {
-        storage.stream().filter(x -> x.check(food)).forEach(x -> x.add(food));
+        for (Box item : storage) {
+            if (item.check(food)) {
+                item.add(food);
+                break;
+            }
+        }
+       // storage.stream().filter(x -> x.check(food)).forEach(x -> x.add(food));
     }
 }
