@@ -22,6 +22,10 @@ public class PrintFiles implements FileVisitor<Path> {
     String ext;
     List<String> list = new ArrayList<>();
 
+    public PrintFiles(String ext) {
+        this.ext = ext;
+    }
+
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
         return CONTINUE;
