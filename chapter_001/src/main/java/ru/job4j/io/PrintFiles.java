@@ -19,8 +19,8 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  * @since 22.03.2020
  */
 public class PrintFiles implements FileVisitor<Path> {
-    String ext;
-    List<String> list = new ArrayList<>();
+    private String ext;
+    private List<String> list = new ArrayList<>();
 
     public PrintFiles(String ext) {
         this.ext = ext;

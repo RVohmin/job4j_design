@@ -15,20 +15,18 @@ public class Analizy {
         String temp;
         String line;
 
-        try (FileReader fr = new FileReader(source);
-             FileWriter fw = new FileWriter(target);
-             Scanner scan = new Scanner(fr)) {
-            while (scan.hasNextLine()) {
-                line = scan.nextLine();
+        try (BufferedReader fr = new BufferedReader(new FileReader(source));
+             BufferedWriter fw = new BufferedWriter(new FileWriter(target))) {
+            while ((line = fr.readLine()) != null) {
                 if (line.startsWith("400") || line.startsWith("500")) {
                     temp = line.substring(4) + "-";
-                    line = scan.nextLine();
+                    line = fr.readLine();
                     while (line != null) {
                         if ((line.startsWith("200") || line.startsWith("300"))) {
                             fw.write(temp + line.substring(4) + "\n");
                             break;
                         }
-                        line = scan.nextLine();
+                        line = fr.readLine();
                     }
                 }
             }
