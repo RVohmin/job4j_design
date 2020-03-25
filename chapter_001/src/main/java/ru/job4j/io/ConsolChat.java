@@ -3,6 +3,7 @@ package ru.job4j.io;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.zip.ZipOutputStream;
 
 /**
  * ru.job4j.io.consolChat
@@ -14,5 +15,4 @@ import java.util.Scanner;
 public class ConsolChat {
     Scanner scanner = new Scanner(System.in);
     String word = scanner.nextLine();
-
 }

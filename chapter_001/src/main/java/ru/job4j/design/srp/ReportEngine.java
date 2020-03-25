@@ -34,14 +34,17 @@ public class ReportEngine {
         store1.add(worker3);
 
         ReportEngine engine = new ReportEngine(store1);
+
         Department developersDep = new DevelopersDep();
         Department hrDep = new HRDep();
         Department accountDep = new AccountersDep();
+
         Report reportText = new ReportText();
         Report reportHtml = new ReportHtml();
         Report reportXML = new ReportXML();
         Report reportJSON = new ReportJSON();
-        String text = engine.generate(em -> true, reportHtml, accountDep);
+
+        String text = engine.generate(em -> em.getSalary() > 100, reportHtml, accountDep);
         System.out.println(text);
     }
 }
