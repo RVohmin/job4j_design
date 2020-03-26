@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * ru.job4j.io.zip.Args
@@ -31,7 +30,7 @@ public class Args {
     /**
      * проверка на существование полученного пути и занесение всех подпутей в лист
      *
-     * @throws Exception
+     * @throws Exception - Exception
      */
     public String directory() throws Exception {
         dir = new File(arguments[1]);
@@ -45,11 +44,11 @@ public class Args {
     /**
      * проверка формата полученных аргументов на корректность *.ext и занесение их в лист
      *
-     * @throws Exception
+     * @throws Exception - Exception
      */
     public List<String> exclude() throws Exception {
         for (int i = 3; i < arguments.length; i++) {
-            while (arguments[i].equals("-o")) {
+            while (arguments[i].equals("-e")) {
                 if (!arguments[i].toLowerCase().startsWith("*.")) {
                     throw new Exception("Extension must starts with *.");
                 }
@@ -65,11 +64,11 @@ public class Args {
     /**
      * Проверка на окончание .zip и получение списка файлов для архивации с учетом структуры каталогов
      *
-     * @throws Exception
+     * @throws Exception- Exception
      */
     public File output() throws Exception {
-        String outputName = "";
-        Arrays.stream(arguments).dropWhile(x -> x.equals("-o")).findFirst().ifPresent(x -> x = outputName);
+        String outputName = arguments[arguments.length - 1];
+//        Arrays.stream(arguments).dropWhile(x -> x.endsWith(".zip")).findFirst().ifPresent(x -> x = outputName);
         if (!outputName.toLowerCase().endsWith(".zip")) {
             throw new Exception("Неверное расширение, должно быть .zip");
         }
