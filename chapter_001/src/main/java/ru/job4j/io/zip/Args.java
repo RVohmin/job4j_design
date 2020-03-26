@@ -28,7 +28,7 @@ public class Args {
     }
 
     /**
-     * проверка на существование полученного пути и занесение всех подпутей в лист
+     * проверка на существование полученного пути
      *
      * @throws Exception - Exception
      */
@@ -37,7 +37,6 @@ public class Args {
         if (!dir.isDirectory() || !dir.exists()) {
             throw new Exception("input path is not Directory or not exist");
         }
-//        allPaths.addAll(Arrays.asList(Objects.requireNonNull(dir.list())));
         return dir.toString();
     }
 
@@ -68,17 +67,9 @@ public class Args {
      */
     public File output() throws Exception {
         String outputName = arguments[arguments.length - 1];
-//        Arrays.stream(arguments).dropWhile(x -> x.endsWith(".zip")).findFirst().ifPresent(x -> x = outputName);
         if (!outputName.toLowerCase().endsWith(".zip")) {
             throw new Exception("Неверное расширение, должно быть .zip");
         }
-//        for (String path : allPaths) {
-//            for (String ext : excludes) {
-//                if (!path.endsWith(ext)) {
-//                    output.add(path);
-//                }
-//            }
-//        }
         return new File(outputName);
     }
 }

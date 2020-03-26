@@ -19,8 +19,6 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  */
 public class Zip extends SimpleFileVisitor<Path> {
     private Args helper;
-
-
     List<File> listPaths = new ArrayList<>();
 
     public Zip(Args helper) {
