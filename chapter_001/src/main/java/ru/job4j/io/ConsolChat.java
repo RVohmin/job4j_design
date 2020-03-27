@@ -40,13 +40,13 @@ public class ConsolChat {
         String word = "";
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(logChat));
              Scanner scanner = new Scanner(System.in)) {
-            while (!word.equals(END)) {
+            while (!word.equalsIgnoreCase(END)) {
                 word = scanner.nextLine();
                 fw.write(word + "\n");
-                if (!word.equals(STOP)
-                        && !word.equals(END)
+                if (!word.equalsIgnoreCase(STOP)
+                        && !word.equalsIgnoreCase(END)
                         && checkAnswer
-                        || word.equals(CONTINUE)) {
+                        || word.equalsIgnoreCase(CONTINUE)) {
                     int numAnswer = (int) (Math.random() * count);
                     String phrase = textMap.get(numAnswer);
                     System.out.println(phrase);
@@ -54,7 +54,7 @@ public class ConsolChat {
                 } else {
                     checkAnswer = false;
                 }
-                if (word.equals(CONTINUE)) {
+                if (word.equalsIgnoreCase(CONTINUE)) {
                     checkAnswer = true;
                 }
             }

@@ -17,6 +17,7 @@ import java.net.Socket;
 public class EchoServer {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
+            mainLoop:
             while (true) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
@@ -24,10 +25,9 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
-                        if (str.equals("http://localhost:9000/?msg=Bye")) {
-                            socket.close();
+                        if (str.contains("/?msg=Bye")) {
                             server.close();
-                            System.exit(0);
+                            break mainLoop;
                         }
                         System.out.println(str);
                     }
