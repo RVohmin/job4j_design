@@ -24,6 +24,11 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
+                        if (str.equals("http://localhost:9000/?msg=Bye")) {
+                            socket.close();
+                            server.close();
+                            System.exit(0);
+                        }
                         System.out.println(str);
                     }
                     out.write("HTTP/1.1 200 OK\r\n\\".getBytes());

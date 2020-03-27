@@ -12,18 +12,22 @@ import java.util.*;
  * @since 23.03.2020
  */
 public class ConsolChat {
-    File logChat = new File("logChat.txt");
     private final File textGuess;
-    Map<Integer, String> textMap = new HashMap<>();
-    String line;
-    boolean checkAnswer = true;
+    private static final String END = "закончить";
+    private static final String CONTINUE = "продолжить";
+    private static final String STOP = "стоп";
+
 
     public ConsolChat(File textGuess) {
         this.textGuess = textGuess;
     }
 
     public void chat() {
+        Map<Integer, String> textMap = new HashMap<>();
+        File logChat = new File("logChat.txt");
         int count = 1;
+        boolean checkAnswer = true;
+        String line;
         try (BufferedReader fr = new BufferedReader(new FileReader(textGuess))) {
             while ((line = fr.readLine()) != null) {
                 textMap.put(count, line);
@@ -36,13 +40,13 @@ public class ConsolChat {
         String word = "";
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(logChat));
              Scanner scanner = new Scanner(System.in)) {
-            while (!word.equals("закончить")) {
+            while (!word.equals(END)) {
                 word = scanner.nextLine();
                 fw.write(word + "\n");
-                if (!word.toLowerCase().equals("стоп")
-                        && !word.toLowerCase().equals("закончить")
+                if (!word.equals(STOP)
+                        && !word.equals(END)
                         && checkAnswer
-                        || word.toLowerCase().equals("продолжить")) {
+                        || word.equals(CONTINUE)) {
                     int numAnswer = (int) (Math.random() * count);
                     String phrase = textMap.get(numAnswer);
                     System.out.println(phrase);
@@ -50,7 +54,7 @@ public class ConsolChat {
                 } else {
                     checkAnswer = false;
                 }
-                if (word.toLowerCase().equals("продолжить")) {
+                if (word.equals(CONTINUE)) {
                     checkAnswer = true;
                 }
             }
