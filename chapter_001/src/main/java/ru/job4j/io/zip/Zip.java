@@ -17,46 +17,32 @@ import static java.nio.file.FileVisitResult.CONTINUE;
  * @version 1
  * @since 24.03.2020
  */
-public class Zip extends SimpleFileVisitor<Path> {
+public class Zip {
     private Args helper;
-    List<File> listPaths = new ArrayList<>();
+    private FileVisitor fileVisitor;
 
     public Zip(Args helper) {
         this.helper = helper;
-    }
-
-    @Override
-    public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
-            File str = new File(path.toString());
-            if (!path.toString().contains(".git") && !path.toString().contains("target")) {
-                File f = new File(path.toString());
-                listPaths.add(f);
-            }
-        return CONTINUE;
+        this.fileVisitor = new FileVisitor(helper.getExcludes());
     }
 
     public List<File> seekBy(String root) throws Exception {
         helper.exclude();
-        Files.walkFileTree(Paths.get(root), this);
-        List<String> extensions = helper.getExcludes();
-        for (String ext: extensions) {
-            listPaths.removeIf(item -> item.toString().endsWith(ext));
-        }
-        return listPaths;
+        Files.walkFileTree(Paths.get(root), fileVisitor);
+        return fileVisitor.getListPaths();
     }
 
     public void pack(List<File> listPaths, File target) {
-            try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-        for (File file : listPaths) {
-            zip.putNextEntry(new ZipEntry(file.getPath()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file))) {
-                zip.write(out.readAllBytes());
+        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
+            for (File file : listPaths) {
+                zip.putNextEntry(new ZipEntry(file.getPath()));
+                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file))) {
+                    zip.write(out.readAllBytes());
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
     }
 
     public static void main(String[] args) throws Exception {
@@ -66,7 +52,5 @@ public class Zip extends SimpleFileVisitor<Path> {
         Args arguments = new Args(args);
         Zip zip = new Zip(arguments);
         zip.pack(zip.seekBy(arguments.directory()), arguments.output());
-
-//        new Zip("java").pack(new File("./chapter_001/"), new File("./chapter_001/chapter_001.zip"));
     }
 }
