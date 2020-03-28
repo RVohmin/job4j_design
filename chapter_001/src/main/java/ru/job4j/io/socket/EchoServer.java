@@ -17,21 +17,22 @@ import java.net.Socket;
 public class EchoServer {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(9000)) {
-            mainLoop:
             while (true) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    String str;
-                    while (!(str = in.readLine()).isEmpty()) {
-                        if (str.contains("/?msg=Bye")) {
+                    String str = in.readLine();
+                        if (str.contains("Exit")) {
                             server.close();
-                            break mainLoop;
-                        }
-                        System.out.println(str);
+                            System.out.println("Сервер закрыт");
+                            break;
+                        } else if (str.contains("Hello")) {
+                            out.write("Hello\n".getBytes());
+                        } else {
+                            out.write(((str.substring((str.indexOf("=") + 1))).substring(0, (str.indexOf(" ") + 1)) + "\n").getBytes());
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
+                    System.out.println(str);
                 }
             }
         }
