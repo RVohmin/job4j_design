@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -13,20 +12,20 @@ import java.util.*;
  */
 public class ConsolChat {
     private final File textGuess;
+    private File logChat;
     private static final String END = "закончить";
     private static final String CONTINUE = "продолжить";
     private static final String STOP = "стоп";
+    private Map<Integer, String> textMap = new HashMap<>();
+    private int count = 1;
 
 
     public ConsolChat(File textGuess) {
         this.textGuess = textGuess;
+        this.logChat = new File("logChat.txt");
     }
 
-    public void chat() {
-        Map<Integer, String> textMap = new HashMap<>();
-        File logChat = new File("logChat.txt");
-        int count = 1;
-        boolean checkAnswer = true;
+    private void readFileAnswers() {
         String line;
         try (BufferedReader fr = new BufferedReader(new FileReader(textGuess))) {
             while ((line = fr.readLine()) != null) {
@@ -37,34 +36,44 @@ public class ConsolChat {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String word = "";
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(logChat));
-             Scanner scanner = new Scanner(System.in)) {
-            while (!word.equalsIgnoreCase(END)) {
-                word = scanner.nextLine();
-                fw.write(word + "\n");
-                if (!word.equalsIgnoreCase(STOP)
-                        && !word.equalsIgnoreCase(END)
-                        && checkAnswer
-                        || word.equalsIgnoreCase(CONTINUE)) {
-                    int numAnswer = (int) (Math.random() * count);
-                    String phrase = textMap.get(numAnswer);
-                    System.out.println(phrase);
-                    fw.write(phrase + "\n");
-                } else {
-                    checkAnswer = false;
-                }
-                if (word.equalsIgnoreCase(CONTINUE)) {
-                    checkAnswer = true;
-                }
-            }
+    }
+
+    private void chat(String word) {
+        try (BufferedWriter fw = new BufferedWriter(new FileWriter(this.logChat, true))) {
+            fw.write(word + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void readConsole() {
+        this.readFileAnswers();
+        boolean checkAnswer = true;
+        String word = "";
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (!END.equalsIgnoreCase(word)) {
+                word = scanner.nextLine();
+                chat(word);
+                if (!STOP.equalsIgnoreCase(word)
+                        && !END.equalsIgnoreCase(word)
+                        && checkAnswer
+                        || CONTINUE.equalsIgnoreCase(word)) {
+                    int numAnswer = (int) (Math.random() * count);
+                    String phrase = textMap.get(numAnswer);
+                    System.out.println(phrase);
+                    chat(phrase);
+                } else {
+                    checkAnswer = false;
+                }
+                if (CONTINUE.equalsIgnoreCase(word)) {
+                    checkAnswer = true;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         ConsolChat chat = new ConsolChat(new File("./text.txt"));
-        chat.chat();
+        chat.readConsole();
     }
 }
