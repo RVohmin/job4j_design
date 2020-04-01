@@ -19,12 +19,18 @@ public class ConsolChat {
     private Map<Integer, String> textMap = new HashMap<>();
     private int count = 1;
 
-
+    /**
+     * constructor
+     * @param textGuess - file with answers
+     */
     public ConsolChat(File textGuess) {
         this.textGuess = textGuess;
         this.logChat = new File("logChat.txt");
     }
 
+    /**
+     * Reading File with answers to temporary List
+     */
     private void readFileAnswers() {
         String line;
         try (BufferedReader fr = new BufferedReader(new FileReader(textGuess))) {
@@ -38,7 +44,11 @@ public class ConsolChat {
         }
     }
 
-    private void chat(String word) {
+    /**
+     * writing user input & random phrase to log
+     * @param word String that input user
+     */
+    private void writeLogChat(String word) {
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(this.logChat, true))) {
             fw.write(word + "\n");
         } catch (IOException e) {
@@ -46,6 +56,10 @@ public class ConsolChat {
         }
     }
 
+    /**
+     * this method asked user for input from console and
+     * print random phrase as answer
+     */
     public void readConsole() {
         this.readFileAnswers();
         boolean checkAnswer = true;
@@ -53,7 +67,7 @@ public class ConsolChat {
         try (Scanner scanner = new Scanner(System.in)) {
             while (!END.equalsIgnoreCase(word)) {
                 word = scanner.nextLine();
-                chat(word);
+                writeLogChat(word);
                 if (!STOP.equalsIgnoreCase(word)
                         && !END.equalsIgnoreCase(word)
                         && checkAnswer
@@ -61,7 +75,7 @@ public class ConsolChat {
                     int numAnswer = (int) (Math.random() * count);
                     String phrase = textMap.get(numAnswer);
                     System.out.println(phrase);
-                    chat(phrase);
+                    writeLogChat(phrase);
                 } else {
                     checkAnswer = false;
                 }
@@ -72,6 +86,10 @@ public class ConsolChat {
         }
     }
 
+    /**
+     * main method calls chat
+     * @param args - no args
+     */
     public static void main(String[] args) {
         ConsolChat chat = new ConsolChat(new File("./text.txt"));
         chat.readConsole();
