@@ -1,6 +1,4 @@
-package ru.job4j.tdd.cinema;
-
-import java.util.List;
+package ru.job4j.design.tdd.cinema;
 
 /**
  * @author RVohmin

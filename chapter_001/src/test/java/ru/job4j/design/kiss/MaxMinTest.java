@@ -1,8 +1,7 @@
-package ru.job4j.kiss;
+package ru.job4j.design.kiss;
 
 import org.junit.Test;
 
-import java.util.Comparator;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;

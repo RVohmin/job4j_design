@@ -11,7 +11,6 @@ import java.io.File;
  */
 public class ArgCheck {
     private String[] arguments;
-    private String dir;
 
     public ArgCheck(String[] args) {
         this.arguments = args;
@@ -22,8 +21,7 @@ public class ArgCheck {
     }
 
     public String getDir() throws Exception {
-        dir = this.directory();
-        return dir;
+        return this.directory();
     }
 
     public String directory() throws Exception {

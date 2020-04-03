@@ -1,7 +1,5 @@
 package ru.job4j.io.search;
 
-import ru.job4j.io.Search;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,25 +15,28 @@ import java.util.List;
  * @since 01.04.2020
  */
 public class SearchFile {
-    ArgCheck arguments;
-    FileVisitor fileVisitor;
-    List<File> listFiles;
-    File output;
+    private FileVisitor fileVisitor;
 
-    public SearchFile(ArgCheck arguments) {
-        this.arguments = arguments;
-        this.fileVisitor = new FileVisitor(arguments);
-        this.output = new File("searchResult.txt");
+    public SearchFile(CheckName checkName) {
+        this.fileVisitor = new FileVisitor(checkName);
     }
 
-    public List<File> seekBy(String root) throws Exception {
+    public void seekBy(String root) throws Exception {
         Files.walkFileTree(Paths.get(root), fileVisitor);
-        listFiles = fileVisitor.getListPaths();
+        List<File> listFiles = fileVisitor.getListPaths();
         write(listFiles);
-        return listFiles;
     }
 
     private void write(List<File> listFiles) {
+        File output = new File("searchResult.txt");
+        try {
+            if (!output.createNewFile()) {
+                output.delete();
+                output.createNewFile();
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
         for (File item : listFiles) {
             try (BufferedWriter out = new BufferedWriter(new FileWriter(output, true))) {
                 out.write(item.toString() + System.lineSeparator());
@@ -52,8 +53,9 @@ public class SearchFile {
                     "where -m - finding by mack; либо -f - full name match; -r regular expression.");
         }
         ArgCheck arguments = new ArgCheck(args);
-        SearchFile searchFile = new SearchFile(arguments);
-        searchFile.seekBy(arguments.directory());
+        CheckName checkName = new CheckName(arguments);
+        SearchFile searchFile = new SearchFile(checkName);
+        searchFile.seekBy(arguments.getDir());
         searchFile.fileVisitor.getListPaths().forEach(System.out::println);
     }
 }
