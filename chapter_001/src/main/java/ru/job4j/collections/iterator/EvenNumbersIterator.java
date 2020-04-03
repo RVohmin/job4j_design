@@ -21,26 +21,35 @@ public class EvenNumbersIterator implements Iterator {
         this.array = array;
     }
 
-    @Override
-    public boolean hasNext() {
-        next = index;
-        while (next < array.length) {
-            if (array[next] % 2 == 0) {
-                return true;
+    private void loop(int ind) {
+        this.counter = ind;
+        checkEven = false;
+        value = 1;
+        while (counter < array.length) {
+            if (array[counter] % 2 == 0) {
+                checkEven = true;
+                value = array[counter++];
+                return;
             }
-            next++;
+            counter++;
         }
-        return false;
     }
 
     @Override
-    public Object next() {
-        while (index < array.length) {
-            if (array[index] % 2 == 0) {
-                return array[index++];
-            }
-            index++;
+    public boolean hasNext() {
+        counter = index;
+        loop(counter);
+        return checkEven;
+    }
+
+    @Override
+    public Integer next() {
+        counter = index;
+        loop(counter);
+        index = counter;
+        if (value == 1) {
+            throw new NoSuchElementException("No more even elements");
         }
-        throw new NoSuchElementException("No more even elements");
+        return value;
     }
 }
