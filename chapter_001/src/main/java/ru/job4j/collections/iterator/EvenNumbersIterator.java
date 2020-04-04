@@ -12,7 +12,6 @@ import java.util.NoSuchElementException;
 public class EvenNumbersIterator implements Iterator {
     int[] array;
     int index = 0;
-    int next = 0;
     int counter = 0;
     boolean checkEven;
     int value;
@@ -22,9 +21,8 @@ public class EvenNumbersIterator implements Iterator {
     }
 
     private void loop(int ind) {
-        this.counter = ind;
+        counter = ind;
         checkEven = false;
-        value = 1;
         while (counter < array.length) {
             if (array[counter] % 2 == 0) {
                 checkEven = true;
@@ -47,7 +45,7 @@ public class EvenNumbersIterator implements Iterator {
         counter = index;
         loop(counter);
         index = counter;
-        if (value == 1) {
+        if (!checkEven) {
             throw new NoSuchElementException("No more even elements");
         }
         return value;
