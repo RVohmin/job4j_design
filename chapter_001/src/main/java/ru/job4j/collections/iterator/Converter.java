@@ -1,6 +1,5 @@
 package ru.job4j.collections.iterator;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
