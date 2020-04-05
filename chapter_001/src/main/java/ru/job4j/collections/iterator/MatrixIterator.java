@@ -1,54 +1,62 @@
 package ru.job4j.collections.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * ru.job4j.collections.iterator.MatrixIterator
  *
  * @author romanvohmin
- * @version 1
+ * @version 2
  * @since 02.04.2020
  */
 public class MatrixIterator<T> implements Iterator<T> {
-    private int size;          //всего элементов в матрице
-    private int position = 0;  //позиция текущего элемента для "выдачи"
-    private int row = 0;       //строка текущего элемента
-    private int col = 0;       //столбец текущего элемента
     private T[][] matrix;
+    private int row = 0;
+    private int col = 0;
 
+    /**
+     * redefined constructor
+     * @param matrix - two-dimensional array
+     */
     public MatrixIterator(T[][] matrix) {
         this.matrix = matrix;
-        this.size = countElements(matrix);
     }
 
     /**
-     * Метод подсчета всех элементов в двумерной матрице
-     * @param matrix - двумерный массив
-     * @return количество всех элементов
+     * Method checked for exist an elements in matrix,
+     * if element equal last element in row (and it is not last row in matrix),
+     * then row++ and element stayed at first position of row
+     * @return is exist elements in matrix
      */
-    private int countElements(T[][] matrix) {  //считаем количество элементов в матрице
-        int count = 0;
-        for (T[] row : matrix) {
-            count += row.length;
-        }
-        return count;
-    }
-
     @Override
     public boolean hasNext() {
-        return position < size;
+        boolean result = false;
+        if (matrix.length > 0) {
+            result = true;
+            while (col == matrix[row].length) {
+                if (row != matrix.length - 1) {
+                    row++;
+                    col = 0;
+                } else {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
+    /**
+     *
+     * @return next element of matrix (of row, then move to the next row at first position until end matrix)
+     * moving pointer to next row makes hasNext()
+     */
     @Override
     public T next() {
-        T element = matrix[row][col];  //запоминаем текущий элемент
-        //переходим к следующему элементу
-        position++;
-        col++;
-        while (row < matrix.length && col >= matrix[row].length) { //для того, чтоб пропустить возможные "пустые" строки
-            col = 0;
-            row++;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
-        return element;
+        return matrix[row][col++];
     }
 }

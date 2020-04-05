@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author romanvohmin
  * @since 03.04.2020
  */
-public class EvenNumbersIterator implements Iterator {
+public class EvenNumbersIterator implements Iterator<Integer> {
     int[] array;
     int index = 0;
 
