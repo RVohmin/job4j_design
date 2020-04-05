@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 public class EvenNumbersIterator implements Iterator {
     int[] array;
     int index = 0;
+
     int counter = 0;
     boolean checkEven;
     int value;

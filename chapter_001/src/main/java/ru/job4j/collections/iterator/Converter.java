@@ -20,7 +20,7 @@ public class Converter {
         return new Iterator<>() {
 
             private void isCheck() {
-                if (!subIter.hasNext() && it.hasNext()) {
+                while (!subIter.hasNext() && it.hasNext()) {
                     subIter = it.next();
                 }
             }
