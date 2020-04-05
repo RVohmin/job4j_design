@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -37,13 +38,10 @@ public class SimpleArrayTest {
         simpleArray.add(4);
         simpleArray.add(5);
 
-        SimpleArray<Integer> simpleArray2 = new SimpleArray<>(5);
-        simpleArray2.add(1);
-        simpleArray2.add(2);
-        simpleArray2.add(4);
-        simpleArray2.add(5);
+
         simpleArray.remove(2);
-        assertEquals(simpleArray2, simpleArray);
+
+        assertThat(new Integer[]{1, 2, 4, 5, null}, is(simpleArray.getArray()));
     }
 
     @Test

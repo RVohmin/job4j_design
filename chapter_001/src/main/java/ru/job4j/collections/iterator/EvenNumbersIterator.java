@@ -13,42 +13,28 @@ public class EvenNumbersIterator implements Iterator {
     int[] array;
     int index = 0;
 
-    int counter = 0;
-    boolean checkEven;
-    int value;
-
     public EvenNumbersIterator(int[] array) {
         this.array = array;
     }
 
-    private void loop(int ind) {
-        counter = ind;
-        checkEven = false;
-        while (counter < array.length) {
-            if (array[counter] % 2 == 0) {
-                checkEven = true;
-                value = array[counter++];
-                return;
-            }
-            counter++;
-        }
-    }
-
     @Override
     public boolean hasNext() {
-        counter = index;
-        loop(counter);
-        return checkEven;
+        boolean temp = false;
+        for (int i = index; i < array.length; i++) {
+            if (array[i] % 2 == 0) {
+                temp = true;
+                index = i;
+                break;
+            }
+        }
+        return temp;
     }
 
     @Override
     public Integer next() {
-        counter = index;
-        loop(counter);
-        index = counter;
-        if (!checkEven) {
+        if (!hasNext()) {
             throw new NoSuchElementException("No more even elements");
         }
-        return value;
+        return array[index++];
     }
 }
