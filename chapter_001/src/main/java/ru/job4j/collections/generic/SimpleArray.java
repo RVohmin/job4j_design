@@ -11,8 +11,8 @@ import java.util.NoSuchElementException;
  * @since 04.04.2020
  */
 public class SimpleArray<T> implements Iterable<T> {
-    private Object[] array;
-    private int index = 0;
+    private final Object[] array;
+    private int size = 0;
 
     public Object[] getArray() {
         return array;
@@ -22,40 +22,33 @@ public class SimpleArray<T> implements Iterable<T> {
         this.array = new Object[cells];
     }
 
-    private void checkArrayIndex(int index) {
-        if (index >= array.length) {
-            throw new ArrayIndexOutOfBoundsException("Index out of array bounds");
-        }
-    }
-
     public void add(T model) {
-        boolean success = false;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
-                array[i] = model;
-                success = true;
-                break;
-            }
-        }
-        if (!success) {
+        if (size >= array.length) {
             throw new IllegalStateException("There are no free cells");
         }
+        array[size] = model;
+        size++;
     }
 
     public void set(int index, T model) {
-        checkArrayIndex(index);
-        array[index] = model;
+        if (index >= 0 && index < array.length) {
+            array[index] = model;
+        }
     }
 
     public void remove(int index) {
-        checkArrayIndex(index);
-        System.arraycopy(array, index + 1, array, index, array.length - 1 - index);
-        array[array.length - 1] = null;
+        if (index >= 0 && index < array.length) {
+            System.arraycopy(array, index + 1, array, index, array.length - index - 1);
+        }
+        array[size - 1] = null;
+        size--;
     }
 
-    public T get(int index) {
-        checkArrayIndex(index);
-        return (T) array[index];
+    public int get(int index) {
+        if (index >= 0 && index < array.length) {
+            return (int) array[index];
+        }
+        throw new ArrayIndexOutOfBoundsException("index out of bounds array");
     }
 
 
@@ -70,7 +63,6 @@ public class SimpleArray<T> implements Iterable<T> {
             }
 
             @Override
-            @SuppressWarnings("unchecked")
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();

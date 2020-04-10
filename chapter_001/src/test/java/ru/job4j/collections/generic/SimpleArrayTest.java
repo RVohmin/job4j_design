@@ -53,10 +53,4 @@ public class SimpleArrayTest {
         int result = simpleArray.get(0);
         assertThat(result, is(1));
     }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void whenSetIndexOutOfBoundsThenException() {
-        SimpleArray<Integer> simpleArray = new SimpleArray<>(2);
-        simpleArray.set(2, 2);
-    }
 }
