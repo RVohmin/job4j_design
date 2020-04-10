@@ -1,16 +1,16 @@
 package ru.job4j.collections.generic;
 
 /**
- * job4j_design ru.job4j.collections.generic.UserStore
+ * job4j_design ru.job4j.collections.generic.RoleStore
  *
  * @author romanvohmin
  * @version 1
- * @since 05.04.2020 06:58
+ * @since 10.04.2020 15:56
  */
-public class UserStore<T extends Base> implements Store<T> {
+public class RoleStore<T extends Base> implements Store<T> {
     SimpleArray<T> userStore;
 
-    public UserStore(SimpleArray<T> userStore) {
+    public RoleStore(SimpleArray<T> userStore) {
         this.userStore = userStore;
     }
 

@@ -22,6 +22,10 @@ public class SimpleArray<T> implements Iterable<T> {
         this.array = new Object[cells];
     }
 
+    public int getSize() {
+        return array.length;
+    }
+
     public void add(T model) {
         if (size >= array.length) {
             throw new IllegalStateException("There are no free cells");
@@ -44,9 +48,9 @@ public class SimpleArray<T> implements Iterable<T> {
         size--;
     }
 
-    public int get(int index) {
+    public T get(int index) {
         if (index >= 0 && index < array.length) {
-            return (int) array[index];
+            return (T) array[index];
         }
         throw new ArrayIndexOutOfBoundsException("index out of bounds array");
     }
