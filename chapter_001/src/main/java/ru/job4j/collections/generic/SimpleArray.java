@@ -34,7 +34,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        if (index >= 0 && index < size && index < array.length) {
+        if (index >= 0 && index < size && size < array.length) {
             array[index] = model;
         }
     }
