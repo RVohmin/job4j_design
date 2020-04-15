@@ -34,15 +34,17 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        if (index >= 0 && index < size && size < array.length) {
-            array[index] = model;
+        if (index < 0 && index > size) {
+            throw new IllegalStateException();
         }
+        array[index] = model;
     }
 
     public void remove(int index) {
-        if (index >= 0 && index < size) {
-            System.arraycopy(array, index + 1, array, index, array.length - index - 1);
+        if (index < 0 && index >= size) {
+            throw new IllegalStateException();
         }
+        System.arraycopy(array, index + 1, array, index, array.length - index - 1);
         array[size - 1] = null;
         size--;
     }
