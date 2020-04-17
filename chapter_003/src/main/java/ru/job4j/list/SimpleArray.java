@@ -29,7 +29,6 @@ public class SimpleArray<T> implements Iterable<T> {
         array[size] = model;
         modCount++;
         size++;
-
     }
 
     @Override
