@@ -1,9 +1,6 @@
 package ru.job4j.list;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * job4j_design ru.job4j.list.SimpleArray
@@ -53,6 +50,11 @@ public class MyLinkedList<T> implements Iterable<T> {
         }
         if (index == size - 1) {
             removeLast();
+            return;
+        }
+        if (index == 0) {
+            removeFirst();
+            return;
         }
         Node<T> node = first;
         int count = 0;
@@ -71,6 +73,13 @@ public class MyLinkedList<T> implements Iterable<T> {
 
     public void removeLast() {
         last.previous.next = null;
+        size--;
+        modCount++;
+    }
+
+    public void removeFirst() {
+        first = first.next;
+        first.previous = null;
         size--;
         modCount++;
     }
@@ -123,13 +132,27 @@ public class MyLinkedList<T> implements Iterable<T> {
         };
     }
 
+    @Override
+    public String toString() {
+        Node<T> node = first;
+        Object[] arr = new Object[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = node.value;
+            node = node.next;
+        }
+        return Arrays.toString(arr);
+    }
 
     public static void main(String[] args) {
         MyLinkedList<Integer> list = new MyLinkedList<>();
         list.add(1);
         list.add(2);
         list.add(3);
-        list.remove(2);
+        System.out.println(list);
+        list.remove(0);
+        System.out.println(list);
+        list.remove(1);
+        System.out.println(list);
         System.out.println("size " + list.size());
         Iterator<Integer> iterator = list.iterator();
         System.out.println(iterator.hasNext());
