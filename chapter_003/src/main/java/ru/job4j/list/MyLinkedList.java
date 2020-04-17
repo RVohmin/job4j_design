@@ -14,7 +14,15 @@ public class MyLinkedList<T> implements Iterable<T> {
     private int modCount = 0;
     private int size = 0;
 
-    private static class Node<T> {
+    public Node<T> getFirst() {
+        return first;
+    }
+
+    public Node<T> getLast() {
+        return last;
+    }
+
+    public static class Node<T> {
         T value;
         Node<T> next;
         Node<T> previous;
@@ -49,11 +57,11 @@ public class MyLinkedList<T> implements Iterable<T> {
             return;
         }
         if (index == size - 1) {
-            removeLast();
+            deleteLast();
             return;
         }
         if (index == 0) {
-            removeFirst();
+            deleteFirst();
             return;
         }
         Node<T> node = first;
@@ -71,13 +79,24 @@ public class MyLinkedList<T> implements Iterable<T> {
         }
     }
 
-    public void removeLast() {
-        last.previous.next = null;
+    public void deleteLast() {
+        if (size == 1) {
+            clear();
+            return;
+        }
+        last = last.previous;
+        last.next = null;
         size--;
         modCount++;
     }
 
-    public void removeFirst() {
+    public T poll(){
+        T temp = last.value;
+        deleteLast();
+        return temp;
+    }
+
+    public void deleteFirst() {
         first = first.next;
         first.previous = null;
         size--;
@@ -141,5 +160,19 @@ public class MyLinkedList<T> implements Iterable<T> {
             node = node.next;
         }
         return Arrays.toString(arr);
+    }
+
+    public static void main(String[] args) {
+        MyLinkedList<Integer> list = new MyLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        System.out.println("poll " + list.poll());
+        System.out.println("size " + list.size);
+        System.out.println("poll " + list.poll());
+        System.out.println("size " + list.size);
+        System.out.println("poll " + list.poll());
+        System.out.println("size " + list.size);
+
     }
 }
