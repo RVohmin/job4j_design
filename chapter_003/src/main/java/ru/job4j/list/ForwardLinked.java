@@ -59,9 +59,21 @@ public class ForwardLinked<T> implements Iterable<T> {
         T value;
         Node<T> next;
 
+
         public Node(T value, Node<T> next) {
             this.value = value;
             this.next = next;
+        }
+    }
+
+    public static void main(String[] args) {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        linked.add(3);
+        System.out.println(linked);
+        for (Integer item : linked) {
+            System.out.println(item);
         }
     }
 }
