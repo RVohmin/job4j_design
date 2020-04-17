@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
  * @since 17.04.2020 23:32
  */
 public class SimpleStack<T> {
-    public MyLinkedList<T> linked = new MyLinkedList<>();
+    private final MyLinkedList<T> linked = new MyLinkedList<>();
 
     public T poll() {
         T temp;

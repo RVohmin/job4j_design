@@ -90,13 +90,11 @@ public class MyLinkedList<T> implements Iterable<T> {
         modCount++;
     }
 
-    public T poll(){
-        T temp = last.value;
-        deleteLast();
-        return temp;
-    }
-
     public void deleteFirst() {
+        if (size == 1) {
+            clear();
+            return;
+        }
         first = first.next;
         first.previous = null;
         size--;
@@ -167,12 +165,6 @@ public class MyLinkedList<T> implements Iterable<T> {
         list.add(1);
         list.add(2);
         list.add(3);
-        System.out.println("poll " + list.poll());
-        System.out.println("size " + list.size);
-        System.out.println("poll " + list.poll());
-        System.out.println("size " + list.size);
-        System.out.println("poll " + list.poll());
-        System.out.println("size " + list.size);
 
     }
 }

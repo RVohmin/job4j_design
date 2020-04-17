@@ -97,4 +97,18 @@ public class MyLinkedListTest {
         list.remove(0);
         assertEquals(0, list.size());
     }
+
+    @Test
+    public void getFirst() {
+        list.clear();
+        list.add(1f);
+        assertEquals(1, list.getFirst().value, 0.001);
+        list.deleteFirst();
+//        assertEquals(2, list.getFirst().value, 0.001);
+    }
+
+    @Test
+    public void getLast() {
+        assertEquals(5, list.getLast().value, 0.001);
+    }
 }
