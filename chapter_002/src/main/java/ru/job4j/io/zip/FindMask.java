@@ -7,7 +7,7 @@ package ru.job4j.io.zip;
  * @version 1
  * @since 01.04.2020
  */
-public class FindMask implements Findable {
+public class FindMask implements FindAble {
 
     @Override
     public String getFileMask(String arg) {
