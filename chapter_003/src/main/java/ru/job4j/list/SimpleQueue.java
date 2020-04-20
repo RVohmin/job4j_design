@@ -7,17 +7,23 @@ package ru.job4j.list;
  * @since 18.04.2020 00:19
  */
 public class SimpleQueue<T> {
-    private final SimpleList<T> list = new SimpleList<>();
+    private final SimpleStack<T> in = new SimpleStack<>();
+    private final SimpleStack<T> out = new SimpleStack<>();
 
     public T poll() {
-        return list.deleteFirst();
+        if (out.size() == 0) {
+            while (in.size() != 0) {
+                out.push(in.poll());
+            }
+        }
+        return out.poll();
     }
 
     public void push(T value) {
-        list.add(value);
+        in.push(value);
     }
 
     public int size() {
-        return list.size();
+        return out.size() + in.size();
     }
 }
