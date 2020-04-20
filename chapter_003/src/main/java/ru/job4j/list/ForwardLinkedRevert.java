@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author romanvohmin
  * @since 14.04.2020 09:11
  */
-public class ForwardLinked<T> implements Iterable<T> {
+public class ForwardLinkedRevert<T> implements Iterable<T> {
     private Node<T> head;
 
     public void add(T value) {
@@ -23,6 +23,21 @@ public class ForwardLinked<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = newNode;
+    }
+
+    public void revert() {
+        Node<T> prevNode = null;
+        Node<T> currentNode = head;
+        Node<T> nextNode = head.next;
+
+        while (nextNode != null) {
+            currentNode.next = prevNode;
+            prevNode = currentNode;
+            currentNode = nextNode;
+            nextNode = currentNode.next;
+        }
+        currentNode.next = prevNode;
+        head = currentNode;
     }
 
     public void deleteFirst() {
@@ -67,7 +82,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public static void main(String[] args) {
-        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        ForwardLinkedRevert<Integer> linked = new ForwardLinkedRevert<>();
         linked.add(1);
         linked.add(2);
         linked.add(3);
