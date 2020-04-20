@@ -1,6 +1,9 @@
 package ru.job4j.list;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * job4j_design ru.job4j.list.SimpleArray
@@ -56,7 +59,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public int getSize() {
-        return array.length;
+        return size;
     }
 
     private void increase() {
