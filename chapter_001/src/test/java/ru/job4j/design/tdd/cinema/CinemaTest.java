@@ -6,8 +6,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.List;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 
 public class CinemaTest {
@@ -19,7 +18,7 @@ public class CinemaTest {
         Calendar date = Calendar.getInstance();
         date.set(2020, Calendar.OCTOBER, 10, 23, 0);
         Ticket ticket = cinema.buy(account, 1, 1, date);
-        assertThat(ticket, is(new Ticket3D()));
+        assertEquals(ticket, new Ticket3D());
     }
     @Ignore
     @Test
@@ -27,7 +26,7 @@ public class CinemaTest {
         Cinema cinema = new Cinema3D();
         cinema.add(new Session3D());
         List<Session> sessions = cinema.find(session -> true);
-        assertThat(sessions, is(List.of(new Session3D())));
+        assertEquals(List.of(new Session3D()), sessions);
     }
 
     @Ignore
@@ -36,7 +35,7 @@ public class CinemaTest {
         Cinema cinema = new Cinema3D();
         Session session = new Session3D();
         cinema.add(session);
-        assertThat(session, is(cinema.find(sessionX -> true)));
+        assertEquals(cinema.find(sessionX -> true), session);
     }
 
 

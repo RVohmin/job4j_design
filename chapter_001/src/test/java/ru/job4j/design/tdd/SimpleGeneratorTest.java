@@ -4,8 +4,7 @@ import org.junit.Test;
 
 import java.util.Map;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class SimpleGeneratorTest {
     @Test
@@ -15,7 +14,7 @@ public class SimpleGeneratorTest {
         Map<String, String> data = Map.of("name", "Petr", "subject", "you");
         String checked = "I am a Petr, Who are you?";
         String result = template.generate(text, data);
-        assertThat(result, is(checked));
+        assertEquals(checked, result, checked);
     }
 
     @Test
@@ -25,7 +24,7 @@ public class SimpleGeneratorTest {
         Map<String, String> data = Map.of("sos", "Aaaa");
         String checked = " Help, Aaaa, Aaaa, Aaaa";
         String result = template.generate(text, data);
-        assertThat(result, is(checked));
+        assertEquals(checked, result);
     }
 
     @Test(expected = Exception.class)
@@ -35,7 +34,7 @@ public class SimpleGeneratorTest {
         Map<String, String> data = Map.of("cos", "Aaaa");
         String checked = " Help, Ааaа, Ааaа, Ааaа";
         String result = template.generate(text, data);
-        assertThat(result, is(checked));
+        assertEquals(checked, result);
     }
 
     @Test(expected = Exception.class)
@@ -45,7 +44,7 @@ public class SimpleGeneratorTest {
         Map<String, String> data = Map.of("sos", "Aaaa", "extra", "Aaaa");
         String checked = " Help, Аааa, Аааa, Аааa";
         String result = template.generate(text, data);
-        assertThat(result, is(checked));
+        assertEquals(checked, result);
     }
 
 }

@@ -4,8 +4,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 
 public class MaxMinTest {
@@ -17,7 +16,7 @@ public class MaxMinTest {
         MaxMin obj = new MaxMin();
         Integer expected = 5;
         Integer rsl = obj.min(list, Integer::compareTo);
-        assertThat(expected, is(rsl));
+        assertEquals(rsl, expected);
     }
 
     @Test
@@ -26,7 +25,7 @@ public class MaxMinTest {
         MaxMin obj = new MaxMin();
         Integer expected = -5;
         Integer rsl = obj.min(list, Integer::compareTo);
-        assertThat(expected, is(rsl));
+        assertEquals(rsl, expected);
     }
 
     @Test
@@ -35,7 +34,7 @@ public class MaxMinTest {
         MaxMin obj = new MaxMin();
         Integer expected = 99;
         Integer rsl = obj.max(list, Integer::compareTo);
-        assertThat(expected, is(rsl));
+        assertEquals(rsl, expected);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class MaxMinTest {
         MaxMin obj = new MaxMin();
         Integer expected = 100;
         Integer rsl = obj.max(list, Integer::compareTo);
-        assertThat(expected, is(rsl));
+        assertEquals(rsl, expected);
     }
 
 }

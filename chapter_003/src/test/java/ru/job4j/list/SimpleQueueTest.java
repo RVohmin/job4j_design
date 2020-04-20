@@ -2,7 +2,7 @@ package ru.job4j.list;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SimpleQueueTest {
     SimpleQueue<Integer> queue = new SimpleQueue<>();
@@ -22,6 +22,6 @@ public class SimpleQueueTest {
         queue.push(1);
         queue.push(3);
         queue.push(5);
-        assertEquals(3, queue.getSise());
+        assertEquals(3, queue.size());
     }
 }

@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  * @since 02.04.2020
  */
 public class MatrixIterator<T> implements Iterator<T> {
-    private T[][] matrix;
+    private final T[][] matrix;
     private int row = 0;
     private int col = 0;
 

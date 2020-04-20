@@ -9,23 +9,23 @@ import java.util.NoSuchElementException;
  * @author romanvohmin
  * @since 04.04.2020
  */
-public class SimpleArray<E> implements Iterable<E> {
-    private final Object[] array;
+public class SimpleArray<T> implements Iterable<T> {
+    private final T[] array;
     private int size = 0;
 
-    public Object[] getArray() {
+    public T[] getArray() {
         return array;
     }
 
     public SimpleArray(int cells) {
-        this.array = new Object[cells];
+        array = (T[]) new Object[cells];
     }
 
     public int getSize() {
         return array.length;
     }
 
-    public void add(E model) {
+    public void add(T model) {
         if (size >= array.length) {
             throw new IllegalStateException("There are no free cells");
         }
@@ -33,7 +33,7 @@ public class SimpleArray<E> implements Iterable<E> {
         size++;
     }
 
-    public void set(int index, E model) {
+    public void set(int index, T model) {
         if (index < 0 && index > size) {
             throw new IllegalStateException();
         }
@@ -49,30 +49,30 @@ public class SimpleArray<E> implements Iterable<E> {
         size--;
     }
 
-    public E get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= array.length) {
             throw new ArrayIndexOutOfBoundsException("index out of bounds array");
         }
-        return (E) array[index];
+        return array[index];
     }
 
 
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<T> iterator() {
         return new Iterator<>() {
-            int position = 0;
+            int index = 0;
 
             @Override
             public boolean hasNext() {
-                return position < size;
+                return index < size;
             }
 
             @Override
-            public E next() {
+            public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return (E) array[position++];
+                return array[index++];
             }
         };
     }

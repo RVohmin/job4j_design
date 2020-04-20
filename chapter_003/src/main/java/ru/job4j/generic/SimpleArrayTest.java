@@ -3,7 +3,8 @@ package ru.job4j.generic;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class SimpleArrayTest {
 
@@ -12,7 +13,7 @@ public class SimpleArrayTest {
         SimpleArray<Integer> simpleArray = new SimpleArray<>(5);
         simpleArray.add(1);
         int result = simpleArray.get(0);
-        assertThat(result, is(1));
+        assertEquals(1, result);
     }
 
     @Test

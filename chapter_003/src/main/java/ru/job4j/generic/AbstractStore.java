@@ -23,9 +23,8 @@ public class AbstractStore<T extends Base> implements Store<T> {
         int index = getIndexById(id);
         if (index != -1) {
             store.set(index, model);
-            return true;
         }
-        return false;
+        return index != -1;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class AbstractStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        return null;
+        return store.get(getIndexById(id));
     }
 
     private int getIndexById(String id) {

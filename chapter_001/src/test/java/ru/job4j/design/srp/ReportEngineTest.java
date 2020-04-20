@@ -4,8 +4,7 @@ import org.junit.Test;
 
 import java.util.Calendar;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ReportEngineTest {
     @Test
@@ -21,7 +20,7 @@ public class ReportEngineTest {
         String expect = "name: " + worker1.getName()
                 + System.lineSeparator()
                 + "salary: " + worker1.getSalary() + " euros;\n";
-        assertThat(engine.generate(em -> true, hrText, hrDep), is(expect));
+        assertEquals(expect, engine.generate(em -> true, hrText, hrDep));
     }
 
     @Test
@@ -59,6 +58,6 @@ public class ReportEngineTest {
                 + System.lineSeparator()
                 + "</html>"
                 + System.lineSeparator();
-        assertThat(engine.generate(em -> true, reportHtml, hrDep), is(html));
+        assertEquals(html, engine.generate(em -> true, reportHtml, hrDep));
     }
 }

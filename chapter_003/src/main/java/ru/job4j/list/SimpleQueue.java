@@ -7,19 +7,17 @@ package ru.job4j.list;
  * @since 18.04.2020 00:19
  */
 public class SimpleQueue<T> {
-    private final MyLinkedList<T> linkedList = new MyLinkedList<>();
+    private final SimpleList<T> list = new SimpleList<>();
 
     public T poll() {
-        T temp = linkedList.getFirst().value;
-        linkedList.deleteFirst();
-        return temp;
+        return list.deleteFirst();
     }
 
     public void push(T value) {
-        linkedList.add(value);
+        list.add(value);
     }
 
-    public int getSise() {
-        return linkedList.size();
+    public int size() {
+        return list.size();
     }
 }
