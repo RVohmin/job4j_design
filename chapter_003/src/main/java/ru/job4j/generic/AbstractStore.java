@@ -1,5 +1,7 @@
 package ru.job4j.generic;
 
+import java.util.NoSuchElementException;
+
 /**
  * job4j_design ru.job4j.generic.AbstractStore
  *
@@ -39,7 +41,11 @@ public class AbstractStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        return store.get(getIndexById(id));
+        int index = getIndexById(id);
+        if (index == -1) {
+            throw new NoSuchElementException("Out of Bound array");
+        }
+        return store.get(index);
     }
 
     private int getIndexById(String id) {
