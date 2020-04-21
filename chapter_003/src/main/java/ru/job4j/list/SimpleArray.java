@@ -20,7 +20,7 @@ public class SimpleArray<T> implements Iterable<T> {
     private int modCount = 0;
     private int size = 0;
 
-    public T get(int index) {
+    public T getByIndex(int index) {
         if (index < 0 || index >= size) {
             throw new NoSuchElementException();
         }
@@ -75,7 +75,7 @@ public class SimpleArray<T> implements Iterable<T> {
             array.add(i);
         }
         for (int i = 0; i < 40; i++) {
-            System.out.println(array.get(i));
+            System.out.println(array.getByIndex(i));
         }
         System.out.println("length: " + array.getSize());
     }

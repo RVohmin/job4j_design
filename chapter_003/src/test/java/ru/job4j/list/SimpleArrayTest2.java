@@ -14,7 +14,7 @@ public class SimpleArrayTest2 {
     public void whenAddThenGet() {
         SimpleArray<String> array = new SimpleArray<>();
         array.add("first");
-        String rsl = array.get(0);
+        String rsl = array.getByIndex(0);
         assertEquals("first", rsl);
     }
 
@@ -29,14 +29,14 @@ public class SimpleArrayTest2 {
     @Test(expected = NoSuchElementException.class)
     public void whenGetEmpty() {
         SimpleArray<String> array = new SimpleArray<>();
-        array.get(0);
+        array.getByIndex(0);
     }
 
     @Test(expected = NoSuchElementException.class)
     public void whenGetOutBound() {
         SimpleArray<String> array = new SimpleArray<>();
         array.add("first");
-        array.get(1);
+        array.getByIndex(1);
     }
 
     @Test(expected = NoSuchElementException.class)

@@ -11,10 +11,10 @@ import java.util.Iterator;
  * @since 20.04.2020 23:27
  */
 public class SimpleSet<E> implements Iterable<E> {
-    SimpleArray<E> set = new SimpleArray<>();
+    private final SimpleArray<E> set = new SimpleArray<>();
 
-    public int get(int index) {
-        return set.getSize();
+    public E getByIndex(int index) {
+        return set.getByIndex(index);
     }
 
     public void add(E model) {
