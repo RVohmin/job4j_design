@@ -2,8 +2,7 @@ package ru.job4j.io;
 
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class ConfigTest {
     @Test
@@ -11,10 +10,7 @@ public class ConfigTest {
         String path = "..//app.proppperties";
         Config config = new Config(path);
         config.load();
-        assertThat(
-                config.value("name"),
-                is("Petr Arsentev")
-        );
+        assertEquals("Petr Arsentev", config.value("name"));
     }
 
     @Test
@@ -22,10 +18,6 @@ public class ConfigTest {
         String path = "..//app.proppperties";
         Config config = new Config(path);
         config.load();
-
-        assertThat(
-                config.value("name"),
-                is("Petr Arsentev")
-        );
+        assertEquals("Petr Arsentev", config.value("name"));
     }
 }

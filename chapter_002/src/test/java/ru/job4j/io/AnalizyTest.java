@@ -8,8 +8,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class AnalizyTest {
     @Rule
@@ -41,7 +40,7 @@ public class AnalizyTest {
                 + "11:01:02-11:02:02\n"
                 + "12:00:01-13:01:01\n"
                 + "14:01:02-14:02:02";
-        assertThat(res.toString(), is(expected));
+        assertEquals(expected, res.toString());
     }
 
 }
