@@ -16,7 +16,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * length - задает начальную длину массива, которая увеличивается при заполнении массива в 1,5 раза
      */
     private int length = 10;
-    private Object[] array = new Object[length];
+    private T[] array = (T[]) new Object[length];
     private int modCount = 0;
     private int size = 0;
 
@@ -24,7 +24,7 @@ public class SimpleArray<T> implements Iterable<T> {
         if (index < 0 || index >= size) {
             throw new NoSuchElementException();
         }
-        return (T) array[index];
+        return array[index];
     }
 
     public void add(T model) {
@@ -37,7 +37,7 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
-            private int position = 0;
+            private int index = 0;
             private final int expectedModCount = modCount;
 
             @Override
@@ -45,7 +45,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return position < size;
+                return index < size;
             }
 
             @Override
@@ -53,7 +53,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return (T) array[position++];
+                return array[index++];
             }
         };
     }
