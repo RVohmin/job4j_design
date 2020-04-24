@@ -20,7 +20,6 @@ public class SimpleSet<E> implements Iterable<E> {
     public void add(E model) {
         if (!contains(model)) {
             set.add(model);
-
         }
     }
 

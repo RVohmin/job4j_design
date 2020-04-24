@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Calendar;
 import java.util.UUID;
 
 /**
@@ -9,10 +8,10 @@ import java.util.UUID;
  * @author romanvohmin
  * @since 21.04.2020 12:32
  */
-public class User {
+public final class User {
     private final String name;
     private final int children;
-    private Calendar birthday;
+//    private Calendar birthday;
 
     public String getName() {
         return name;
@@ -20,14 +19,6 @@ public class User {
 
     public int getChildren() {
         return children;
-    }
-
-    public Calendar getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Calendar birthday) {
-        this.birthday = birthday;
     }
 
     public User() {
@@ -45,7 +36,28 @@ public class User {
         return "User{" +
                 "name='" + name + '\'' +
                 ", children=" + children +
-                ", birthday=" + birthday +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (getChildren() != user.getChildren()) return false;
+        return getName() != null ? getName().equals(user.getName()) : user.getName() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + getChildren();
+        return result;
+    }
+
+    public static void main(String[] args) {
+
     }
 }

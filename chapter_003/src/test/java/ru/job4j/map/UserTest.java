@@ -1,26 +1,30 @@
 package ru.job4j.map;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserTest {
-    User user1 = new User("Petya", 2);
-    User user2 = new User("Petya", 2);
-    Map<User, Object> map = new HashMap<>();
-    Object object = new Object();
-
-    @Before
-    public void setUp() {
-        map.put(user1, object);
-        map.put(user2, object);
-    }
 
     @Test
     public void test() {
-        System.out.println(map.toString());
+        User user1 = new User("Petya", 2);
+        User user2 = new User("Petya", 2);
+        Object object = new Object();
+
+        Map<User, Object> map = new HashMap<>();
+
+        map.put(user1, object);
+        map.put(user2, object);
+
+        System.out.println((user1).hashCode());
+        System.out.println((user2).hashCode());
+        System.out.println(user1.equals(user2));
+        System.out.println(map.size());
+        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE >>> 16));
+        System.out.println(Integer.toBinaryString(Integer.MIN_VALUE >> 1));
     }
+
 
 }
