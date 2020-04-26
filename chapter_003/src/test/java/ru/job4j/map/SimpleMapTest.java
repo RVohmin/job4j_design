@@ -2,6 +2,8 @@ package ru.job4j.map;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 public class SimpleMapTest {
@@ -62,7 +64,6 @@ public class SimpleMapTest {
         assertEquals(1, map.getBucketForTests("1"));
         assertEquals(1, map.getBucketForTests("aa "));
         map.delete("1");
-        System.out.println(map);
         assertEquals(2, map.getSize());
         assertEquals("111", map.get("a"));
         assertNull(map.get("1"));
@@ -78,5 +79,26 @@ public class SimpleMapTest {
         map.delete("b");
         assertEquals(2, map.getSize());
         assertNull(map.get("b"));
+    }
+
+    @Test
+    public void whenAddElementsAndIterate() {
+        SimpleMap<String, String> map = new SimpleMap<>();
+        Iterator<SimpleMap.Node<String, String>> iterator = map.iterator();
+        map.insert("a", "111");
+        map.insert("1", "1111");
+        map.insert("aa ", "11111");
+        map.insert("b", "222");
+        map.insert("bb ", "2222");
+        map.insert("c", "333");
+        map.insert("d", "444");
+        map.insert("e", "555");
+        map.insert("ee ", "5555");
+
+
+        System.out.println(map.getSize());
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
     }
 }

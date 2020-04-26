@@ -71,6 +71,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
     boolean insertToTargetTable(Node<K, V> node, Node<K, V>[] table) {
         int index = getIndexFor(node.key, table);
         Node<K, V> newNode = new Node<>(node.key, node.value, null, hash(node.key));
+        Node<K, V> first = newNode;
         Node<K, V> item = table[index];
         if (item != null) {
             if (item.next != null) {
@@ -81,6 +82,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
                 size++;
                 return true;
             } else {
+                first.next = newNode;
                 item.next = newNode;
                 size++;
                 return true;
@@ -202,11 +204,12 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
     public Iterator<SimpleMap.Node<K, V>> iterator() {
 
         return new Iterator<>() {
-            private int count = 0;
+            private int index = 0;
+            Node<K, V> node = hashTable[index];
 
             @Override
             public boolean hasNext() {
-                return count < size;
+                return index < size;
             }
 
             @Override
@@ -214,7 +217,15 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node<K, V>> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return hashTable[count++];
+                while (hashTable[index] == null && index != size) {
+                    node = hashTable[index++];
+                }
+                if (node != null && node.next != null) {
+                    node = node.next;
+                } else {
+                    node = hashTable[index++];
+                }
+                return node;
             }
         };
     }
