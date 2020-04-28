@@ -17,7 +17,7 @@ public class Analize {
             }
         }
         for (User item : previous) {
-            if (current.contains(item) && item.getName().equals(current.get(current.indexOf(item)).getName())) {
+            if (!current.contains(item)) {
                 info.deleted++;
             }
         }
