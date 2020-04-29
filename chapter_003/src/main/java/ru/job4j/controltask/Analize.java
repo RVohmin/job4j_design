@@ -1,6 +1,8 @@
 package ru.job4j.controltask;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * job4j_design ru.job4j.controltask.Analize
@@ -11,19 +13,28 @@ import java.util.List;
 public class Analize {
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info();
-        for (User item : current) {
-            if (!previous.contains(item)) {
-                info.added++;
-            }
-        }
+        Map<Integer, User> prevMap = new HashMap<>();
+        Map<Integer, User> currentMap = new HashMap<>();
+
         for (User item : previous) {
-            if (!current.contains(item)) {
+            prevMap.put(item.id, item);
+        }
+        for (User item : current) {
+            currentMap.put(item.id, item);
+        }
+        for (Map.Entry<Integer, User> item : prevMap.entrySet()) {
+            int key = item.getKey();
+            User value = item.getValue();
+            if (currentMap.get(key) == null) {
                 info.deleted++;
             }
-        }
-        for (User item : previous) {
-            if (current.contains(item) && !item.getName().equals(current.get(current.indexOf(item)).getName())) {
+            if (currentMap.get(key) != null && !value.getName().equals(currentMap.get(key).getName())) {
                 info.changed++;
+            }
+        }
+        for (User item : current) {
+            if (prevMap.get(item.getId()) == null) {
+                info.added++;
             }
         }
         return info;
