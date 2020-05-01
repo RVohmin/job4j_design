@@ -24,10 +24,10 @@ public class Analize {
         for (Map.Entry<Integer, User> item : prevMap.entrySet()) {
             int key = item.getKey();
             User value = item.getValue();
-            if (currentMap.containsKey(key)) {
+            if (currentMap.get(key) == null) {
                 info.deleted++;
             }
-            if (currentMap.containsKey(key) && !value.getName().equals(currentMap.get(key).getName())) {
+            if (currentMap.get(key) != null && !value.getName().equals(currentMap.get(key).getName())) {
                 info.changed++;
             }
         }
