@@ -36,5 +36,4 @@ public class StorageTest {
         System.out.println(storage.getMergeUsers());
         assertEquals(5, storage.getUsers().size());
     }
-
 }

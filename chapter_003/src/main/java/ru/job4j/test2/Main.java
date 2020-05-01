@@ -33,7 +33,9 @@ public class Main {
                     name = scanner.nextLine();
                     System.out.println("Введите email");
                     String email = scanner.nextLine();
-                    storage.getUser(name).setEmail(email);
+                    user = storage.getUser(name);
+                    user.setEmail(email);
+                    storage.mergeUsers(user);
                     break;
                 case "3":
                     for (User item : storage.getUsers()) {
