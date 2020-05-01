@@ -15,7 +15,6 @@ public class Analize {
         Info info = new Info();
         Map<Integer, User> prevMap = new HashMap<>();
         Map<Integer, User> currentMap = new HashMap<>();
-
         for (User item : previous) {
             prevMap.put(item.id, item);
         }
@@ -25,15 +24,15 @@ public class Analize {
         for (Map.Entry<Integer, User> item : prevMap.entrySet()) {
             int key = item.getKey();
             User value = item.getValue();
-            if (currentMap.get(key) == null) {
+            if (currentMap.containsKey(key)) {
                 info.deleted++;
             }
-            if (currentMap.get(key) != null && !value.getName().equals(currentMap.get(key).getName())) {
+            if (currentMap.containsKey(key) && !value.getName().equals(currentMap.get(key).getName())) {
                 info.changed++;
             }
         }
         for (User item : current) {
-            if (prevMap.get(item.getId()) == null) {
+            if (!prevMap.containsKey(item.getId())) {
                 info.added++;
             }
         }

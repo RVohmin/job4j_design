@@ -2,6 +2,7 @@ package ru.job4j.controltask;
 
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -12,7 +13,8 @@ public class AnalizeTest {
         Analize analize = new Analize();
         Analize.User user1 = new Analize.User(1, "Alex1");
         Analize.User user2 = new Analize.User(2, "Alex2");
-        final List<Analize.User> prevList = List.of(user1, user2);
+        List<Analize.User> prevList = List.of(user1, user2);
+        prevList = Collections.unmodifiableList(prevList);
         Analize.User user5 = new Analize.User(5, "Alex5");
         Analize.User user6 = new Analize.User(6, "Alex6");
         List<Analize.User> currentList = List.of(user1, user2, user5, user6);
