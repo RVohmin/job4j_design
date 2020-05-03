@@ -33,7 +33,8 @@ public class StorageTest {
         storage.addUser(user3);
         storage.addUser(user4);
         storage.addUser(user5);
-        System.out.println(storage.getMergeUsers());
+//        System.out.println(storage.getMergeUsers());
+        System.out.println(storage.newMergeUsers(storage.getUsers()));
         assertEquals(5, storage.getUsers().size());
     }
 }

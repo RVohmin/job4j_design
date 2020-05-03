@@ -1,9 +1,6 @@
 package ru.job4j.test2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * job4j_design ru.job4j.test2.Storage
@@ -36,16 +33,7 @@ public class Storage {
 
     public void addUser(User user) {
         users.add(user);
-        if (user.getEmails().size() != 0) {
-            mergeUsers(user);
-        }
     }
-
-//    private void fillMap() {
-//        for (User item : users) {
-//            mergeUsers(item);
-//        }
-//    }
 
     public void mergeUsers(User user) {
         boolean flag = false;
@@ -70,9 +58,44 @@ public class Storage {
         }
     }
 
+    public List<User> newMergeUsers(List<User> users) {
+        Queue<User> queueUsers = new LinkedList<>(users);
+        while (!queueUsers.isEmpty()) {
+            boolean flag = false;
+            User user = queueUsers.poll();
+            List<String> tempUserList = new ArrayList<>(user.getEmails());
+            if (map.size() == 0) {
+                map.put(user.getName(), new ArrayList<>(user.getEmails()));
+            } else {
+                for (Map.Entry<String, List<String>> item : map.entrySet()) {
+                    List<String> tempMapList = new ArrayList<>(item.getValue());
+                    if (tempUserList.removeAll(tempMapList)) {
+                        item.getValue().addAll(tempUserList);
+                        flag = true;
+                    }
+                }
+                if (!flag && user.getEmails().size() != 0) {
+                    map.put(user.getName(), user.getEmails());
+                }
+            }
+        }
+        mergeUsers.clear();
+        for (Map.Entry<String, List<String>> item : map.entrySet()) {
+            mergeUsers.add(new User(item.getKey(), item.getValue()));
+        }
+        return mergeUsers;
+    }
+
+    public void mergeToMap() {
+        Queue<User> queueUsers = new LinkedList<>(users);
+        while (!queueUsers.isEmpty()) {
+            mergeUsers(queueUsers.poll());
+        }
+    }
+
     private void fillMergedList() {
         mergeUsers.clear();
-//        fillMap();
+        mergeToMap();
         for (Map.Entry<String, List<String>> item : map.entrySet()) {
             mergeUsers.add(new User(item.getKey(), item.getValue()));
         }
