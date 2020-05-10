@@ -58,33 +58,33 @@ public class Storage {
         }
     }
 
-    public List<User> newMergeUsers(List<User> users) {
-        Queue<User> queueUsers = new LinkedList<>(users);
-        while (!queueUsers.isEmpty()) {
-            boolean flag = false;
-            User user = queueUsers.poll();
-            List<String> tempUserList = new ArrayList<>(user.getEmails());
-            if (map.size() == 0) {
-                map.put(user.getName(), new ArrayList<>(user.getEmails()));
-            } else {
-                for (Map.Entry<String, List<String>> item : map.entrySet()) {
-                    List<String> tempMapList = new ArrayList<>(item.getValue());
-                    if (tempUserList.removeAll(tempMapList)) {
-                        item.getValue().addAll(tempUserList);
-                        flag = true;
-                    }
-                }
-                if (!flag && user.getEmails().size() != 0) {
-                    map.put(user.getName(), user.getEmails());
-                }
-            }
-        }
-        mergeUsers.clear();
-        for (Map.Entry<String, List<String>> item : map.entrySet()) {
-            mergeUsers.add(new User(item.getKey(), item.getValue()));
-        }
-        return mergeUsers;
-    }
+//    public List<User> newMergeUsers(List<User> users) {
+//        Queue<User> queueUsers = new LinkedList<>(users);
+//        while (!queueUsers.isEmpty()) {
+//            boolean flag = false;
+//            User user = queueUsers.poll();
+//            List<String> tempUserList = new ArrayList<>(user.getEmails());
+//            if (map.size() == 0) {
+//                map.put(user.getName(), new ArrayList<>(user.getEmails()));
+//            } else {
+//                for (Map.Entry<String, List<String>> item : map.entrySet()) {
+//                    List<String> tempMapList = new ArrayList<>(item.getValue());
+//                    if (tempUserList.removeAll(tempMapList)) {
+//                        item.getValue().addAll(tempUserList);
+//                        flag = true;
+//                    }
+//                }
+//                if (!flag && user.getEmails().size() != 0) {
+//                    map.put(user.getName(), user.getEmails());
+//                }
+//            }
+//        }
+//        mergeUsers.clear();
+//        for (Map.Entry<String, List<String>> item : map.entrySet()) {
+//            mergeUsers.add(new User(item.getKey(), item.getValue()));
+//        }
+//        return mergeUsers;
+//    }
 
     public void mergeToMap() {
         Queue<User> queueUsers = new LinkedList<>(users);
