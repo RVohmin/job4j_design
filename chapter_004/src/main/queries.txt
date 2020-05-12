@@ -17,32 +17,76 @@ type(id, name)
 
 1. Написать запрос получение всех продуктов с типом "СЫР"
 select * from product as p
-where p.type_id=3
-
-или
-select * from product as p
-where p.type_id='сыр'
+inner join type as t on p.type_id = t.id
+where t.name = 'сыр';
 
 2. Написать запрос получения всех продуктов, у кого в имени есть слово "мороженное"
 select * from product as p
-where p.name like 'мороженое'
+-- where p.name like '%мороженое%';
 
 3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
 select * from product as p
-where p.expired_date > '2020-06-01 10:10:10' and p.expired_date < '2020-06-30 10:10:10';
+-- where mod(extract(month from p.expired_date)::int, 12) = mod((extract(month from current_timestamp))::int + 1, 12);
 
 4. Написать запрос, который выводит самый дорогой продукт.
-select max(price) as max from product;
+select * from product as p
+-- where p.price = (SELECT max(price) FROM product);
 
 5. Написать запрос, который выводит количество всех продуктов определенного типа.
 select count(type_id) from product where type_id=1 ;
 
 6. Написать запрос получение всех продуктов с типом "СЫР" и "МОЛОКО"
 select * from product as p
-where p.name IN ('сыр', 'молоко');
+inner join type as t on p.type_id = t.id
+where t.name = 'сыр' or t.name = 'молоко';
 
 7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук.
 Количество продуктов в условии задачи в таблицах не задано.
 
 8. Вывести все продукты и их тип.
-select name, type_id from product;
+select p.name, t.name from product as p
+inner join type as t on p.type_id = t.id;
+
+
+-- create table type(
+-- 	id serial primary key,
+-- 	name varchar(50)
+-- );
+
+-- create table product(
+-- 	id serial primary key,
+-- 	name varchar(50),
+-- 	type_id int references type(id),
+-- 	expired_date timestamp without time zone,
+-- 	price int);
+
+-- 	insert into type (name) values ('сыр');
+-- 	insert into type (name) values ('молоко');
+-- 	insert into type (name) values ('мороженое');
+
+-- insert into product (name, type_id, expired_date, price) values ('отборное', 2, '2020-05-15', 75);
+-- insert into product (name, type_id, expired_date, price) values ('чеддер', 1, '2020-06-15', 475);
+-- insert into product (name, type_id, expired_date, price) values ('пломбир', 3, '2020-05-25', 65);
+-- insert into product (name, type_id, expired_date, price) values ('домик в деревне', 2, '2020-06-25', 95);
+-- insert into product (name, type_id, expired_date, price) values ('ламбер', 1, '2020-07-15', 575);
+-- insert into product (name, type_id, expired_date, price) values ('фруктовый лед', 3, '2020-05-30', 55);
+
+-- select * from product as p
+-- inner join type as t on p.type_id = t.id
+-- where t.name = 'сыр';
+
+-- select * from product as p
+-- where p.name like '%мороженое%';
+
+-- select * from product as p
+-- where p.price = (SELECT max(price) FROM product);
+
+-- select * from product as p
+-- where extract(month from p.expired_date) = extract (month from current_timestamp) + 1;
+
+-- select * from product as p
+-- inner join type as t on p.type_id = t.id
+-- where t.name = 'сыр' or t.name = 'молоко';
+
+select p.name, t.name from product as p
+inner join type as t on p.type_id = t.id;

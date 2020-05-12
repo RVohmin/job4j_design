@@ -1,0 +1,97 @@
+-- create table car_body (
+
+-- id_body serial primary key,
+
+-- name_body varchar(50)
+
+-- );
+
+
+
+-- create table engine (
+
+-- id_eng serial primary key,
+
+-- name_eng varchar(50)
+
+-- );
+
+
+
+-- create table transmission (
+
+-- id_tr serial primary key,
+
+-- name_tr varchar(50)
+
+-- );
+
+
+
+-- create table machine (
+
+-- id serial primary key,
+
+-- name_car varchar(50),
+
+-- body_id int references car_body(id_body),
+
+-- eng_id int references engine(id_eng),
+
+-- tr_id int references transmission(id_tr)
+
+-- );
+
+
+
+-- insert into car_body (name_body) values ('sedan');
+
+-- insert into car_body (name_body) values ('suv');
+
+-- insert into car_body (name_body) values ('van');
+
+--  insert into engine (name_eng) values ('diesel');
+
+--  insert into engine (name_eng) values ('petroleum');
+
+--  insert into engine (name_eng) values ('gas');
+
+--  insert into transmission (name_tr) values ('handly');
+
+--  insert into transmission (name_tr) values ('akpp');
+
+--  insert into transmission (name_tr) values ('robot');
+
+--  insert into machine (name_car, body_id, eng_id, tr_id) values ('Nissan', 2, 2, 2);
+
+-- insert into machine (name_car, body_id, eng_id, tr_id) values ('Toyota', 1, 1, 1);
+
+-- select name_car, name_body, name_eng, name_tr from machine as m
+
+-- left outer join car_body as b on m.body_id = id_body
+
+-- left outer join engine as e on m.eng_id = e.id_eng
+
+-- left outer join transmission as t on m.tr_id = t.id_tr
+
+select name_body from machine as m
+
+right outer join car_body as b on m.body_id = b.id_body
+
+where m.name_car is null
+
+union
+
+select name_eng from engine as e
+
+left outer join machine as m on m.eng_id = e.id_eng
+
+where m.name_car is null
+
+union
+
+select name_tr from machine as m
+
+right outer join transmission as t on m.tr_id = t.id_tr
+
+where m.name_car is null
