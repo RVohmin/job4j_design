@@ -30,7 +30,8 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(x -> users.add(new User(x.substring(0, x.indexOf(";")), x.substring(x.indexOf(";") + 1, x.lastIndexOf(";")))));
+            rd.lines().forEach(x -> users.add(new User(x.substring(0, x.indexOf(";")),
+                    x.substring(x.indexOf(";") + 1, x.lastIndexOf(";")))));
         }
         return users;
     }
@@ -65,10 +66,10 @@ public class ImportDB {
 
     public static void main(String[] args) throws Exception {
         Properties cfg = new Properties();
-        try (FileInputStream in = new FileInputStream("/Users/romanvohmin/projects/job4j_design/chapter_004/src/main/java/ru/job4j/spammer/app.properties")) {
+        try (FileInputStream in = new FileInputStream("app.properties")) {
             cfg.load(in);
         }
-        ImportDB db = new ImportDB(cfg, "/Users/romanvohmin/projects/job4j_design/chapter_004/src/main/java/ru/job4j/spammer/dump.txt");
+        ImportDB db = new ImportDB(cfg, "dump.txt");
         db.save(db.load());
     }
 }
