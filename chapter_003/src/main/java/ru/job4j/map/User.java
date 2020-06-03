@@ -33,20 +33,26 @@ public final class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", children=" + children +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", children=" + children
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
 
         User user = (User) o;
 
-        if (getChildren() != user.getChildren()) return false;
+        if (getChildren() != user.getChildren()) {
+            return false;
+        }
         return getName() != null ? getName().equals(user.getName()) : user.getName() == null;
     }
 
