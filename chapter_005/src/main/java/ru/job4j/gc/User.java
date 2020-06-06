@@ -10,6 +10,6 @@ public class User {
     @Override
     public void finalize() throws Throwable {
         super.finalize();
-        System.out.println("Destroy user object");
+        System.out.println("Destroy user object" + name);
     }
 }
