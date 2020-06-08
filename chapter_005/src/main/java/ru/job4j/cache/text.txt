@@ -1,0 +1,54 @@
+3. WeakHashMap как эффективный кэш памяти
+Допустим, мы хотим создать кэш, в котором объекты больших изображений хранятся в качестве значений, а имена изображений - в качестве ключей. Мы хотим выбрать правильную реализацию карты для решения этой проблемы.
+
+Использование простого HashMap не будет хорошим выбором, потому что объекты-значения могут занимать много памяти. Более того, они никогда не будут возвращены из кэша процессом GC, даже если они больше не используются в нашем приложении.
+
+В идеале нам нужна реализация Map , которая позволяет GC автоматически удалять неиспользуемые объекты. Когда ключ большого объекта изображения не используется в нашем приложении в любом месте, эта запись будет удалена из памяти.
+
+К счастью, WeakHashMap обладает именно этими характеристиками. Давайте проверим наш WeakHashMap и посмотрим, как он себя ведет:
+
+WeakHashMap<UniqueImageName, BigImage> map = new WeakHashMap<>();
+BigImage bigImage = new BigImage("image__id");
+UniqueImageName imageName = new UniqueImageName("name__of__big__image");
+
+map.put(imageName, bigImage);
+assertTrue(map.containsKey(imageName));
+
+imageName = null;
+System.gc();
+
+await().atMost(10, TimeUnit.SECONDS).until(map::isEmpty);
+Мы создаем экземпляр WeakHashMap , в котором будут храниться наши объекты BigImage . Мы помещаем объект BigImage в качестве значения и ссылку на объект imageName в качестве ключа. ImageName будет храниться на карте как тип WeakReference .
+
+Затем мы устанавливаем ссылку imageName на null , поэтому больше нет ссылок, указывающих на объект bigImage . Поведение WeakHashMap по умолчанию - вернуть запись, которая не имеет ссылки на нее в следующем GC, поэтому эта запись будет удалена из памяти следующим процессом GC.
+
+Мы вызываем System.gc () , чтобы заставить JVM запустить процесс GC.
+
+После цикла GC наша WeakHashMap будет пустой:
+
+WeakHashMap<UniqueImageName, BigImage> map = new WeakHashMap<>();
+BigImage bigImageFirst = new BigImage("foo");
+UniqueImageName imageNameFirst = new UniqueImageName("name__of__big__image");
+
+BigImage bigImageSecond = new BigImage("foo__2");
+UniqueImageName imageNameSecond = new UniqueImageName("name__of__big__image__2");
+
+map.put(imageNameFirst, bigImageFirst);
+map.put(imageNameSecond, bigImageSecond);
+
+assertTrue(map.containsKey(imageNameFirst));
+assertTrue(map.containsKey(imageNameSecond));
+
+imageNameFirst = null;
+System.gc();
+
+await().atMost(10, TimeUnit.SECONDS)
+  .until(() -> map.size() == 1);
+await().atMost(10, TimeUnit.SECONDS)
+  .until(() -> map.containsKey(imageNameSecond));
+Обратите внимание, что только ссылка imageNameFirst установлена ​​на null . Ссылка imageNameSecond остается неизменной. После запуска GC карта будет содержать только одну запись - imageNameSecond .
+
+4. Заключение
+В этой статье мы рассмотрели типы ссылок в Java, чтобы полностью понять, как работает java.util.WeakHashMap . Мы создали простой кеш, который использует поведение WeakHashMap и проверим, работает ли он так, как мы ожидали.
+
+Реализация всех этих примеров и фрагментов кода может быть найдена в GitHub project - это проект Maven, поэтому он должен быть легко импортировать и запускать как есть.
