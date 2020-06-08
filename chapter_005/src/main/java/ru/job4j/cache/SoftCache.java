@@ -25,25 +25,4 @@ public class SoftCache {
     public boolean isInCache(String file) {
         return cacheMap.get(file) != null;
     }
-
-    public static void main(String[] args) {
-        SoftCache softCache = new SoftCache();
-        softCache.getText("Names.txt");
-        softCache.getText("text.txt");
-        softCache.getText("Address.txt");
-        System.out.println(softCache.getText("Names.txt"));
-        System.out.println(softCache.getText("Address.txt"));
-
-        System.out.println(softCache.getText("Names.txt"));
-//        System.out.println(softCache.getText("text.txt"));
-        System.gc();
-        System.gc();
-
-        System.out.println("повторно имена ".concat(softCache.getText("Names.txt")));
-        System.gc();
-
-        System.out.println("повторно адреса ".concat(softCache.getText("Address.txt")));
-
-
-    }
 }
