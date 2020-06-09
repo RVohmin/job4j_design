@@ -9,7 +9,7 @@ public class Reader {
     public String getTextfromFile(String fileName) {
         StringBuilder text = new StringBuilder();
         try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
-            in.lines().forEach(str -> text.append(str).append("\n"));
+            in.lines().forEach(str -> text.append(str).append(System.lineSeparator()));
         } catch (IOException f) {
             f.printStackTrace();
         }
