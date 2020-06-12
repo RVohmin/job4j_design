@@ -3,6 +3,8 @@ package ru.job4j.gc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.carrotsearch.sizeof.RamUsageEstimator.sizeOf;
+
 public class Garbage {
     private static final Logger LOG = LoggerFactory.getLogger(Garbage.class);
 
@@ -22,9 +24,23 @@ public class Garbage {
     }
 
     public static void main(String[] args) {
-        info();
-        for (int i = 0; i < 999_955; i++) {
-            new User("test " + i);
+//        info();
+        System.out.println("size of empty object: " + sizeOf(new User("a")) + " bytes");
+        Runtime runtime = Runtime.getRuntime();
+        long freeMemory = runtime.freeMemory();
+        System.out.println("free Memory " + freeMemory + " bytes");
+
+        int mustBe = (int) freeMemory / 64;
+        System.out.println("mustBe " + mustBe + " users");
+
+//        System.out.println("size of empty object: " + sizeOf(new Object()) + " bytes");
+        int i;
+        for (i = 0; i < mustBe / 8 - 1000; i++) {
+
+            new User("test");
         }
+        freeMemory = runtime.freeMemory();
+        System.out.println(freeMemory);
+        System.out.println(i);
     }
 }
